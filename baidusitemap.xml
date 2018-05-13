@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+
+    
+  <url>
+    <loc>http://yoursite.com/2018/05/13/HashMap%E6%BA%90%E7%A0%81/</loc>
+    <lastmod>2018-05-13T08:16:51.851Z</lastmod>
+    <data>
+        <display>
+        <title>HashMap源码解析</title>
+        <pubTime>2018-05-13T08:04:04.549Z</pubTime>
+        
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://yoursite.com/2018/05/13/hello-world/</loc>
+    <lastmod>2018-05-13T02:29:17.537Z</lastmod>
+    <data>
+        <display>
+        <title>Hello World</title>
+        <pubTime>2018-05-13T02:29:17.536Z</pubTime>
+        
+         
+           
+        </display>
+    </data>
+    </url>
+
+</urlset>
