@@ -68,12 +68,10 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="Nginx," />
 
 
 
-
-  
 
 
   <link rel="alternate" href="/atom.xml" title="小蚂蚁爱吃香蕉" type="application/atom+xml" />
@@ -83,18 +81,18 @@
 
 
 
-<meta name="description" content="热爱电影和音乐，除了帅以外还是个有趣的人。 2012 ~ 2016 就读于安徽大学，并结识了一帮可爱温暖善良美丽的小伙伴，经常为他们能有我这样的好朋友而感到荣幸和骄傲 2016 ~ 2018 在恒生电子从事银行产品研发，从此踏入程序猿这条不归路。后因自己怕冷同时又很年轻而来到了深圳并希望可以在深圳开始新的精彩人生">
-<meta name="keywords" content="Java,源码解析,中间件">
-<meta property="og:type" content="website">
-<meta property="og:title" content="关于">
-<meta property="og:url" content="http://yoursite.com/about/index.html">
+<meta name="description" content="Nginx安装###1. 下载依赖包  如果你的服务器可以连接网络的话可以直接通过命令的方式下载tar包  下载PCRE库 wget ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/pcre-8.38.tar.gz  下载zlib库 wget http://zlib.net/zlib-1.2.10.tar.gz  下载OpenSSL库 w">
+<meta name="keywords" content="Nginx">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Nginx安装部署web工程">
+<meta property="og:url" content="http://yoursite.com/2018/05/30/Nginx安装部署web工程/index.html">
 <meta property="og:site_name" content="小蚂蚁爱吃香蕉">
-<meta property="og:description" content="热爱电影和音乐，除了帅以外还是个有趣的人。 2012 ~ 2016 就读于安徽大学，并结识了一帮可爱温暖善良美丽的小伙伴，经常为他们能有我这样的好朋友而感到荣幸和骄傲 2016 ~ 2018 在恒生电子从事银行产品研发，从此踏入程序猿这条不归路。后因自己怕冷同时又很年轻而来到了深圳并希望可以在深圳开始新的精彩人生">
+<meta property="og:description" content="Nginx安装###1. 下载依赖包  如果你的服务器可以连接网络的话可以直接通过命令的方式下载tar包  下载PCRE库 wget ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/pcre-8.38.tar.gz  下载zlib库 wget http://zlib.net/zlib-1.2.10.tar.gz  下载OpenSSL库 w">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-05-15T10:32:44.013Z">
+<meta property="og:updated_time" content="2018-05-30T14:41:43.188Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="关于">
-<meta name="twitter:description" content="热爱电影和音乐，除了帅以外还是个有趣的人。 2012 ~ 2016 就读于安徽大学，并结识了一帮可爱温暖善良美丽的小伙伴，经常为他们能有我这样的好朋友而感到荣幸和骄傲 2016 ~ 2018 在恒生电子从事银行产品研发，从此踏入程序猿这条不归路。后因自己怕冷同时又很年轻而来到了深圳并希望可以在深圳开始新的精彩人生">
+<meta name="twitter:title" content="Nginx安装部署web工程">
+<meta name="twitter:description" content="Nginx安装###1. 下载依赖包  如果你的服务器可以连接网络的话可以直接通过命令的方式下载tar包  下载PCRE库 wget ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/pcre-8.38.tar.gz  下载zlib库 wget http://zlib.net/zlib-1.2.10.tar.gz  下载OpenSSL库 w">
 
 
 
@@ -124,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/about/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/05/30/Nginx安装部署web工程/"/>
 
 
 
 
 
-  <title>关于 | 小蚂蚁爱吃香蕉</title>
+  <title>Nginx安装部署web工程 | 小蚂蚁爱吃香蕉</title>
   
 
 
@@ -289,36 +287,324 @@
 
   <div id="posts" class="posts-expand">
     
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/30/Nginx安装部署web工程/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="小蚂蚁爱吃香蕉">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小蚂蚁爱吃香蕉">
+    </span>
+
     
-    
-    <div class="post-block page">
       <header class="post-header">
 
-	<h1 class="post-title" itemprop="name headline">关于</h1>
-
-
-
-</header>
-
-      
-      
-      
-      <div class="post-body">
         
         
-          <p>热爱电影和音乐，除了帅以外还是个有趣的人。</p>
-<p>2012 ~ 2016 就读于安徽大学，并结识了一帮可爱温暖善良美丽的小伙伴，经常为他们能有我这样的好朋友而感到荣幸和骄傲</p>
-<p>2016 ~ 2018 在恒生电子从事银行产品研发，从此踏入程序猿这条不归路。后因自己怕冷同时又很年轻而来到了深圳并希望可以在深圳开始新的精彩人生</p>
-
+          <h1 class="post-title" itemprop="name headline">Nginx安装部署web工程</h1>
         
-      </div>
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-30T22:24:24+08:00">
+                2018-05-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux环境/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux环境</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-eye"></i> 阅读量
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>次
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                  <span class="post-meta-divider">|</span>
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1,757
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
       
+
+      
+        <h2 id="Nginx安装"><a href="#Nginx安装" class="headerlink" title="Nginx安装"></a>Nginx安装</h2><p>###1. 下载依赖包</p>
+<ul>
+<li><p>如果你的服务器可以连接网络的话可以直接通过命令的方式下载tar包</p>
+<ol>
+<li><p>下载PCRE库</p>
+<p><code>wget ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/pcre-8.38.tar.gz</code></p>
+</li>
+<li><p>下载zlib库</p>
+<p><code>wget http://zlib.net/zlib-1.2.10.tar.gz</code></p>
+</li>
+<li><p>下载OpenSSL库</p>
+<p><code>wget https://www.openssl.org/source/openssl-1.0.2o.tar.gz</code></p>
+</li>
+</ol>
+<a id="more"></a>
+</li>
+<li><p>如果你的服务器无法联网，可以自行去上面的<code>wget</code>命令后面的地址下载对应的tar包文件，ftp路径也可以直接通过浏览器打开，再将他们传到服务器中。</p>
+</li>
+</ul>
+<h3 id="2-安装依赖包"><a href="#2-安装依赖包" class="headerlink" title="2. 安装依赖包"></a>2. 安装依赖包</h3><ul>
+<li><p>安装PCRE库</p>
+<ul>
+<li><p><code>tar -zxvf pcre-8.37.tar.gz</code> 先使用命令解压tar包</p>
+</li>
+<li><p><code>cd pcre-8.38</code> 进去解压后的文件目录</p>
+</li>
+<li><p><code>./configure</code> 运行初始化脚本</p>
+<p><strong>如果此时你不是用root用户安装，或者希望指定安装根路径，可以使用<code>--prefix=</code>参数来指定安装路径</strong> </p>
+<p>如：使用<code>./configure --prefix=/home/test/pcre</code>命令来指定将pcre安装到<code>/home/tese/pcre</code>目录下</p>
+</li>
+<li><p><code>make</code> 使用make命令尝试编译</p>
+</li>
+<li><p><code>make install</code> 编译安装</p>
+</li>
+</ul>
+</li>
+<li><p>安装zlib库</p>
+<ul>
+<li><p><code>tar -zxvf zlib-1.2.10.tar.gz</code> 先使用命令解压tar包</p>
+</li>
+<li><p><code>cd zlib-1.2.10</code> 进去解压后的文件目录</p>
+</li>
+<li><p><code>./configure</code> 运行初始化脚本</p>
+<p><strong>如果此时你不是用root用户安装，或者希望指定安装根路径，可以使用<code>--prefix=</code>参数来指定安装路径</strong> </p>
+<p>如：使用<code>./configure --prefix=/home/test/zlib</code>命令来指定将zlib安装到<code>/home/test/zlib</code>目录下</p>
+</li>
+<li><p><code>make</code> 使用make命令尝试编译</p>
+</li>
+<li><p><code>make install</code> 编译安装</p>
+</li>
+</ul>
+</li>
+<li><p>安装OpenSSL库</p>
+<ul>
+<li><code>tar -zxvf openssl-1.0.2o.tar.gz</code> 使用命令解压tar包即可</li>
+</ul>
+</li>
+</ul>
+<h3 id="3-安装Nginx"><a href="#3-安装Nginx" class="headerlink" title="3. 安装Nginx"></a>3. 安装Nginx</h3><p>####3.1 安装步骤</p>
+<ul>
+<li><p>先下载Nginx的tar包，我这里选择的是最新的稳定版<code>nginx-1.14.0.tar.gz</code></p>
+<p>跟上面安装依赖包一样，如果你的服务器可以联网的话建议使用<code>wget http://nginx.org/download/nginx-1.14.0.tar.gz</code>命令来下载tar包；如果不能联网的话建议自己通过浏览器访问http地址下载</p>
+</li>
+<li><p><code>tar -zxvf nginx-1.14.0.tar.gz</code> 解压Nginx的tar包</p>
+</li>
+<li><p><code>cd nginx-1.14.0</code> 进入解压后的目录</p>
+</li>
+<li><p><code>./configure</code>运行初始化脚本</p>
+<p><strong>注意：Nginx默认的安装路径是<code>/usr/local/nginx</code>,如果你不是使用root用户的话，就不能使用该路径。这里同样可以使用<code>--prefix=</code>参数来指定安装路径</strong> </p>
+<p>同时，你可以使用<code>--with-pcre=/home/test/pcre-8.38</code>来指定pcre安装路径</p>
+<p>使用<code>--with-zlib=/home/test/zlib</code>来指定zlib的安装路径</p>
+</li>
+<li><p><code>make</code> 使用make命令尝试编译</p>
+</li>
+<li><p><code>make install</code> 编译安装</p>
+</li>
+<li><p><code>cd sbin</code> 进入sbin目录下</p>
+</li>
+<li><p><code>./nginx</code> 启动Nginx  同时可以使用 <code>./nginx -s reload</code> 重启Nginx 使用<code>./nginx -s stop</code> 关停Nginx</p>
+</li>
+</ul>
+<h4 id="3-2-Nginx常用编译选项"><a href="#3-2-Nginx常用编译选项" class="headerlink" title="3.2 Nginx常用编译选项"></a>3.2 Nginx常用编译选项</h4><blockquote>
+<p>make是用来编译的，它从Makefile中读取指令，然后编译。</p>
+<p>make install是用来安装的，它也从Makefile中读取指令，安装到指定的位置。</p>
+<p>configure命令是用来检测你的安装平台的目标特征的。它定义了系统的各个方面，包括nginx的被允许使用的连接处理的方法，比如它会检测你是不是有CC或GCC，并不是需要CC或GCC，它是个shell脚本，执行结束时，它会创建一个Makefile文件。nginx的configure命令支持以下参数：</p>
+<ul>
+<li><p><code>--prefix=*path*</code>    定义一个目录，存放服务器上的文件 ，也就是nginx的安装目录。默认使用 <code>/usr/local/nginx。</code></p>
+</li>
+<li><p><code>--sbin-path=*path*</code> 设置nginx的可执行文件的路径，默认为  <code>*prefix*/sbin/nginx</code>.</p>
+</li>
+<li><p><code>--conf-path=*path*</code>  设置在nginx.conf配置文件的路径。nginx允许使用不同的配置文件启动，通过命令行中的-c选项。默认为<code>*prefix*/conf/nginx.conf</code>.</p>
+</li>
+<li><p><code>--pid-path=*path*  设置nginx.pid文件，将存储的主进程的进程号。安装完成后，可以随时改变的文件名 ， 在nginx.conf配置文件中使用 PID指令。默认情况下，文件名 为`</code><em>prefix</em>/logs/nginx.pid`.</p>
+</li>
+<li><p><code>--error-log-path=*path*</code> 设置主错误，警告，和诊断文件的名称。安装完成后，可以随时改变的文件名 ，在nginx.conf配置文件中 使用 的error_log指令。默认情况下，文件名 为<code>*prefix*/logs/error.log</code>.</p>
+</li>
+<li><p><code>--http-log-path=*path*</code>  设置主请求的HTTP服务器的日志文件的名称。安装完成后，可以随时改变的文件名 ，在nginx.conf配置文件中 使用 的access_log指令。默认情况下，文件名 为<code>*prefix*/logs/access.log</code>.</p>
+</li>
+<li><p><code>--user=*name*</code>  设置nginx工作进程的用户。安装完成后，可以随时更改的名称在nginx.conf配置文件中 使用的 user指令。默认的用户名是nobody。</p>
+</li>
+<li><p><code>--group=*name*</code>  设置nginx工作进程的用户组。安装完成后，可以随时更改的名称在nginx.conf配置文件中 使用的 user指令。默认的为非特权用户。</p>
+</li>
+<li><p><code>--with-select_module</code> <code>--without-select_module 启用或禁用构建一个模块来允许服务器使用select()方法。该模块将自动建立，如果平台不支持的kqueue，epoll，rtsig或/dev/poll。</code></p>
+</li>
+<li><p><code>--with-poll_module</code> <code>--without-poll_module</code> 启用或禁用构建一个模块来允许服务器使用poll()方法。该模块将自动建立，如果平台不支持的kqueue，epoll，rtsig或/dev/poll。</p>
+</li>
+<li><p><code>--without-http_gzip_module</code> — 不编译压缩的HTTP服务器的响应模块。编译并运行此模块需要zlib库。</p>
+</li>
+<li><p><code>--without-http_rewrite_module</code>  不编译重写模块。编译并运行此模块需要PCRE库支持。</p>
+</li>
+<li><p><code>--without-http_proxy_module</code> — 不编译http_proxy模块。</p>
+</li>
+<li><p><code>--with-http_ssl_module</code> — 使用https协议模块。默认情况下，该模块没有被构建。建立并运行此模块的OpenSSL库是必需的。</p>
+</li>
+<li><p><code>--with-pcre=*path*</code> — 设置PCRE库的源码路径。PCRE库的源码（版本4.4 - 8.30）需要从PCRE网站下载并解压。其余的工作是Nginx的./ configure和make来完成。正则表达式使用在location指令和 ngx_http_rewrite_module 模块中。</p>
+</li>
+<li><p><code>--with-pcre-jit</code> —编译PCRE包含“just-in-time compilation”（1.1.12中， pcre_jit指令）。</p>
+</li>
+<li><p><code>--with-zlib=*path*</code> —设置的zlib库的源码路径。要下载从 zlib（版本1.1.3 - 1.2.5）的并解压。其余的工作是Nginx的./ configure和make完成。ngx_http_gzip_module模块需要使用zlib 。</p>
+</li>
+<li><p><code>--with-cc-opt=*parameters*</code> — 设置额外的参数将被添加到CFLAGS变量。例如,当你在FreeBSD上使用PCRE库时需要使用:<code>--with-cc-opt=&quot;-I /usr/local/include。</code>.如需要需要增加 <code>select()支持的文件数量</code>:<code>--with-cc-opt=&quot;-D FD_SETSIZE=2048&quot;.</code></p>
+</li>
+<li><p><code>--with-ld-opt=*parameters*</code> —设置附加的参数，将用于在链接期间。例如，当在FreeBSD下使用该系统的PCRE库,应指定:<code>--with-ld-opt=&quot;-L /usr/local/lib&quot;.</code></p>
+</li>
+<li><p>典型实例(下面为了展示需要写在多行，执行时内容需要在同一行)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&gt;   ./configure</span><br><span class="line">&gt;       --sbin-path=/usr/local/nginx/nginx</span><br><span class="line">&gt;       --conf-path=/usr/local/nginx/nginx.conf</span><br><span class="line">&gt;       --pid-path=/usr/local/nginx/nginx.pid</span><br><span class="line">&gt;       --with-http_ssl_module</span><br><span class="line">&gt;       --with-pcre=../pcre-4.4</span><br><span class="line">&gt;       --with-zlib=../zlib-1.1.3</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</blockquote>
+<blockquote>
+</blockquote>
+<p>##部署web工程</p>
+<h3 id="1-关于Nginx配置文件"><a href="#1-关于Nginx配置文件" class="headerlink" title="1. 关于Nginx配置文件"></a>1. 关于Nginx配置文件</h3><h3 id="2-部署前端工程"><a href="#2-部署前端工程" class="headerlink" title="2. 部署前端工程"></a>2. 部署前端工程</h3><h2 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h2><h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><p><a href="http://www.nginx.cn/install" target="_blank" rel="noopener">Nginx安装</a></p>
+
       
     </div>
     
     
     
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Nginx/" rel="tag"># Nginx</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/05/27/关于第一次换工作的面试经验/" rel="next" title="关于第一次换工作的面试经验">
+                <i class="fa fa-chevron-left"></i> 关于第一次换工作的面试经验
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
   </div>
 
 
@@ -351,8 +637,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -457,6 +752,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Nginx安装"><span class="nav-number">1.</span> <span class="nav-text">Nginx安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-安装依赖包"><span class="nav-number">1.1.</span> <span class="nav-text">2. 安装依赖包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-安装Nginx"><span class="nav-number">1.2.</span> <span class="nav-text">3. 安装Nginx</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-Nginx常用编译选项"><span class="nav-number">1.2.1.</span> <span class="nav-text">3.2 Nginx常用编译选项</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-关于Nginx配置文件"><span class="nav-number">1.3.</span> <span class="nav-text">1. 关于Nginx配置文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-部署前端工程"><span class="nav-number">1.4.</span> <span class="nav-text">2. 部署前端工程</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#遇到的问题"><span class="nav-number">2.</span> <span class="nav-text">遇到的问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考链接"><span class="nav-number">3.</span> <span class="nav-text">参考链接</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
