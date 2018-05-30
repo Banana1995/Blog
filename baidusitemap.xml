@@ -4,28 +4,8 @@
 
     
   <url>
-    <loc>http://yoursite.com/2018/05/27/%E7%94%B5%E5%BD%B1/</loc>
-    <lastmod>2018-05-30T14:45:55.440Z</lastmod>
-    <data>
-        <display>
-        <title>老无所依</title>
-        <pubTime>2018-05-27T11:40:59.000Z</pubTime>
-        
-        <tag>科恩兄弟</tag>
-         
-         
-           
-             
-              <breadCrumb title="电影" url="http://yoursite.com/categories/%E7%94%B5%E5%BD%B1/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>http://yoursite.com/2018/05/30/Nginx%E5%AE%89%E8%A3%85%E9%83%A8%E7%BD%B2web%E5%B7%A5%E7%A8%8B/</loc>
-    <lastmod>2018-05-30T14:41:43.188Z</lastmod>
+    <lastmod>2018-05-30T14:49:36.730Z</lastmod>
     <data>
         <display>
         <title>Nginx安装部署web工程</title>
@@ -37,6 +17,26 @@
            
              
               <breadCrumb title="Linux环境" url="http://yoursite.com/categories/Linux%E7%8E%AF%E5%A2%83/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://yoursite.com/2018/05/27/%E7%94%B5%E5%BD%B1/</loc>
+    <lastmod>2018-05-30T14:49:15.089Z</lastmod>
+    <data>
+        <display>
+        <title>老无所依</title>
+        <pubTime>2018-05-27T11:40:59.000Z</pubTime>
+        
+        <tag>科恩兄弟</tag>
+         
+         
+           
+             
+              <breadCrumb title="电影" url="http://yoursite.com/categories/%E7%94%B5%E5%BD%B1/"/>
           
         </display>
     </data>
