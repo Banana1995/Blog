@@ -4,12 +4,12 @@
 
     
   <url>
-    <loc>http://yoursite.com/2018/05/27/Git%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C/</loc>
-    <lastmod>2018-06-10T11:55:09.025Z</lastmod>
+    <loc>http://yoursite.com/2018/06/10/Git%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C/</loc>
+    <lastmod>2018-06-10T12:02:35.036Z</lastmod>
     <data>
         <display>
         <title>Git以及TortoiseGit安装使用</title>
-        <pubTime>2018-05-27T11:40:59.000Z</pubTime>
+        <pubTime>2018-06-10T12:02:12.000Z</pubTime>
         
         <tag>GIT</tag>
          
@@ -17,6 +17,26 @@
            
              
               <breadCrumb title="工具" url="http://yoursite.com/categories/%E5%B7%A5%E5%85%B7/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://yoursite.com/2018/05/27/%E8%80%81%E6%97%A0%E6%89%80%E4%BE%9D/</loc>
+    <lastmod>2018-06-10T12:01:31.236Z</lastmod>
+    <data>
+        <display>
+        <title>老无所依</title>
+        <pubTime>2018-05-27T11:40:59.000Z</pubTime>
+        
+        <tag>科恩兄弟</tag>
+         
+         
+           
+             
+              <breadCrumb title="电影" url="http://yoursite.com/categories/%E7%94%B5%E5%BD%B1/"/>
           
         </display>
     </data>
@@ -37,26 +57,6 @@
            
              
               <breadCrumb title="Linux环境" url="http://yoursite.com/categories/Linux%E7%8E%AF%E5%A2%83/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://yoursite.com/2018/05/27/%E8%80%81%E6%97%A0%E6%89%80%E4%BE%9D/</loc>
-    <lastmod>2018-05-30T14:49:15.089Z</lastmod>
-    <data>
-        <display>
-        <title>老无所依</title>
-        <pubTime>2018-05-27T11:40:59.000Z</pubTime>
-        
-        <tag>科恩兄弟</tag>
-         
-         
-           
-             
-              <breadCrumb title="电影" url="http://yoursite.com/categories/%E7%94%B5%E5%BD%B1/"/>
           
         </display>
     </data>
