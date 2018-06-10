@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/2018/05/27/Git%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C/</loc>
+    
+    <lastmod>2018-06-10T11:49:26.641Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/2018/05/30/Nginx%E5%AE%89%E8%A3%85%E9%83%A8%E7%BD%B2web%E5%B7%A5%E7%A8%8B/</loc>
     
     <lastmod>2018-05-31T13:46:12.301Z</lastmod>
@@ -9,7 +16,7 @@
   </url>
   
   <url>
-    <loc>http://yoursite.com/2018/05/27/%E7%94%B5%E5%BD%B1/</loc>
+    <loc>http://yoursite.com/2018/05/27/%E8%80%81%E6%97%A0%E6%89%80%E4%BE%9D/</loc>
     
     <lastmod>2018-05-30T14:49:15.089Z</lastmod>
     
