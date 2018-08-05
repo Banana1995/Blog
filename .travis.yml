@@ -44,4 +44,5 @@ branches:
     - hexo
 env:
  global:
-   - GH_REF: git@github.com:Banana1995/banana1995.github.io.git
+   - GH_REF:  github.com/Banana1995/banana1995.github.io.git
+ #  - GH_REF: git@github.com:Banana1995/banana1995.github.io.git
