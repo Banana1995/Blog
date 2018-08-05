@@ -1,7 +1,22 @@
 language: node_js
 node_js: stable
-
+cache:
+    apt: true
+    directories:
+        - node_modules
 # S: Build Lifecycle
+notifications:
+    email:
+        recipients:
+            - gaomanyi698@163.com
+        on_success: change
+        on_failure: always
+        
+before_install:
+    - export TZ='Asia/Shanghai'
+    - npm install hexo-cli -g
+    - chmod +x ./publish-to-gh-pages.sh
+    
 install:
   - npm install
 
@@ -10,16 +25,18 @@ install:
  # - npm install -g gulp
 
 script:
+  - hexo clean
   - hexo g
 
 after_script:
-  - cd ./blog/public
-  - git init
-  - git config user.name "Banana1995"
-  - git config user.email "1770261049@qq.com"
-  - git add .
-  - git commit -m "Update docs"
-  - git push --force --quiet "https://${GH_TOKEN}@${GH_REF}" master:master
+  - ./publish-to-gh-pages.sh
+#  - cd ./blog/public
+#  - git init
+#  - git config user.name "Banana1995"
+#  - git config user.email "1770261049@qq.com"
+#  - git add .
+#  - git commit -m "Update docs"
+#  - git push --force --quiet "https://${GH_TOKEN}@${GH_REF}" master:master
 # E: Build LifeCycle
 
 branches:
