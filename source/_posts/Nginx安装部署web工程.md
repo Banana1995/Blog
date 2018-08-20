@@ -1,6 +1,6 @@
 ---
 title: Nginx安装部署web工程
-
+date: 2018-05-30 19:40:59
 categories: "Linux环境"
 
 tags: "Nginx"
