@@ -1,5 +1,6 @@
 ---
 title: Java基本类型与类加载、方法调用
+date: 2018-08-10 20:02:12
 categories: "JVM基础"
 tags: "JVM"
 ---
