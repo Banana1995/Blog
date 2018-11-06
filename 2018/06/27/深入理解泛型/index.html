@@ -7,7 +7,7 @@
 
 <html class="theme-next muse use-motion" lang="zh-Hans">
 <head>
-  <meta charset="UTF-8"/>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 <meta name="theme-color" content="#222">
@@ -90,7 +90,7 @@
 <meta property="og:description" content="类型擦除Java的泛型本质是参数化类型，就是将数据类型做为一个参数，在使用的时候再指定它的具体类型。但是因为Java使用了类型擦除，所以这个参数只存在于编译期，在运行期JVM是并不知道泛型的存在。">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/2018/06/27/深入理解泛型/微信截图_20180404211042.png">
-<meta property="og:updated_time" content="2018-10-28T04:58:32.203Z">
+<meta property="og:updated_time" content="2018-11-06T09:35:04.209Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="深入理解泛型">
 <meta name="twitter:description" content="类型擦除Java的泛型本质是参数化类型，就是将数据类型做为一个参数，在使用的时候再指定它的具体类型。但是因为Java使用了类型擦除，所以这个参数只存在于编译期，在运行期JVM是并不知道泛型的存在。">
@@ -130,7 +130,7 @@
 
 
 
-  <title>深入理解泛型 | 小蚂蚁爱吃香蕉</title>
+  <title>深入理解泛型 | 小蚂蚁爱吃香蕉</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
   
 
 
@@ -149,7 +149,7 @@
     
   
 
-  <div class="container sidebar-position-left page-post-detail">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 	
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -1285,6 +1285,45 @@
   
 
   
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config("");
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+  
+
 
   
 
