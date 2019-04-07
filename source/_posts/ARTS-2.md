@@ -75,7 +75,7 @@ class Solution {
 > 2. private construct can make the subclass could't instantiated too.cause the all constructors must invoke superclass contructor,explicitly or implicitly. and the private constructor is inaccessible from outside class.
 > 3. The AccessError is not strictly required,but it provides insurance in case the constructor is invoked from inside class.
 
-##Tips
+## Tips
 
 学习《VIM使用技巧》，工作中使用vim一直不会快速移动，在此记录下，最近学到的快速移动技巧
 
@@ -88,8 +88,8 @@ class Solution {
    | `gk` | 向上移动一个屏幕行             |
    | `^`  | 移动到实际行的第一个非空白字符 |
    | `g^` | 移动到屏幕行的第一个非空白字符 |
-   | `$`  |  移动到实际行的行尾 |
-   | `g$` | 移动到屏幕行的行尾 |
+   | `$`  | 移动到实际行的行尾             |
+   | `g$` | 移动到屏幕行的行尾             |
 
 2. 基于单词的移动，下面这张截图即可了解清楚各个命令的操作：
 
@@ -107,7 +107,7 @@ class Solution {
 
 
 
-##Share
+## Share
 
 和同学一起做了个分享会，把提纲内容贴在这里，这个内容还没做完，后续还会在这里更新。
 
