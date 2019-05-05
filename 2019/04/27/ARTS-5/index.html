@@ -81,18 +81,21 @@
 
 
 
-<meta name="description" content="上周工作任务很重，周日没来得及打卡，今天补上。真心希望忙完这一阵可以轻松点，不然真的撑不下去了。">
+<meta name="description" content="ARTS第五周本次ARTS主要包括：回文数、最长公共前缀算法、《effective java》关于复写equals方法的Item、VIM使用文本对象选择选区操作、《Java并发编程艺术》前两章的思维导图。">
 <meta name="keywords" content="ARTS">
 <meta property="og:type" content="article">
-<meta property="og:title" content="ARTS补卡第三周">
-<meta property="og:url" content="http://yoursite.com/2019/04/16/ARTS-3/index.html">
+<meta property="og:title" content="ARTS打卡第五周">
+<meta property="og:url" content="http://yoursite.com/2019/04/27/ARTS-5/index.html">
 <meta property="og:site_name" content="小蚂蚁爱吃香蕉">
-<meta property="og:description" content="上周工作任务很重，周日没来得及打卡，今天补上。真心希望忙完这一阵可以轻松点，不然真的撑不下去了。">
+<meta property="og:description" content="ARTS第五周本次ARTS主要包括：回文数、最长公共前缀算法、《effective java》关于复写equals方法的Item、VIM使用文本对象选择选区操作、《Java并发编程艺术》前两章的思维导图。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-05-05T14:42:07.829Z">
+<meta property="og:image" content="http://yoursite.com/2019/04/27/ARTS-5/微信截图_20190505222619.png">
+<meta property="og:image" content="http://yoursite.com/2019/04/27/ARTS-5/Java并发编程的艺术.png">
+<meta property="og:updated_time" content="2019-05-05T14:42:07.841Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="ARTS补卡第三周">
-<meta name="twitter:description" content="上周工作任务很重，周日没来得及打卡，今天补上。真心希望忙完这一阵可以轻松点，不然真的撑不下去了。">
+<meta name="twitter:title" content="ARTS打卡第五周">
+<meta name="twitter:description" content="ARTS第五周本次ARTS主要包括：回文数、最长公共前缀算法、《effective java》关于复写equals方法的Item、VIM使用文本对象选择选区操作、《Java并发编程艺术》前两章的思维导图。">
+<meta name="twitter:image" content="http://yoursite.com/2019/04/27/ARTS-5/微信截图_20190505222619.png">
 
 
 
@@ -122,13 +125,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/04/16/ARTS-3/"/>
+  <link rel="canonical" href="http://yoursite.com/2019/04/27/ARTS-5/"/>
 
 
 
 
 
-  <title>ARTS补卡第三周 | 小蚂蚁爱吃香蕉</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  <title>ARTS打卡第五周 | 小蚂蚁爱吃香蕉</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
   
 
 
@@ -299,7 +302,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/16/ARTS-3/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/27/ARTS-5/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="小蚂蚁爱吃香蕉">
@@ -316,7 +319,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">ARTS补卡第三周</h1>
+          <h1 class="post-title" itemprop="name headline">ARTS打卡第五周</h1>
         
 
         <div class="post-meta">
@@ -328,8 +331,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-16T21:20:29+08:00">
-                2019-04-16
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-27T23:05:39+08:00">
+                2019-04-27
               </time>
             
 
@@ -389,7 +392,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  645
+                  982
                 </span>
               
 
@@ -414,39 +417,50 @@
       
 
       
-        <p>上周工作任务很重，周日没来得及打卡，今天补上。真心希望忙完这一阵可以轻松点，不然真的撑不下去了。</p>
+        <h1 id="ARTS第五周"><a href="#ARTS第五周" class="headerlink" title="ARTS第五周"></a>ARTS第五周</h1><p>本次ARTS主要包括：回文数、最长公共前缀算法、《effective java》关于复写equals方法的Item、VIM使用文本对象选择选区操作、《Java并发编程艺术》前两章的思维导图。</p>
 <a id="more"></a>
 <h2 id="Algorithm"><a href="#Algorithm" class="headerlink" title="Algorithm"></a>Algorithm</h2><blockquote>
-<p>237.删除链表中的结点</p>
+<ol start="9">
+<li>回文数</li>
+</ol>
 </blockquote>
-<p>本来是一道很简单的题，没有理解清楚变量<code>x</code>的含义，结果导致使用了递归还是没有做出来，很可惜；</p>
-<p>贴上最后的解法：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * public class ListNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     ListNode next;</span></span><br><span class="line"><span class="comment"> *     ListNode(int x) &#123; val = x; &#125;</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">deleteNode</span><span class="params">(ListNode node)</span> </span>&#123;</span><br><span class="line">        ListNode nextNode =node.next;</span><br><span class="line">        node.val = nextNode.val;</span><br><span class="line">        node.next = nextNode.next;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="Review"><a href="#Review" class="headerlink" title="Review"></a>Review</h2><p>continue reading 《effective java》.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isPalindrome</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(x&lt;<span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> rightToLeft =<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> te =<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> y = x;</span><br><span class="line">        <span class="keyword">while</span>(y!=<span class="number">0</span>)&#123;</span><br><span class="line">            te = y%<span class="number">10</span>;</span><br><span class="line">            rightToLeft = rightToLeft*<span class="number">10</span>+te;</span><br><span class="line">            y=y/<span class="number">10</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(x==rightToLeft)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>刚好昨晚刷题刷到了整数反转的题目，这里顺手一上来就想到了使用整数反转的方式来做。果然效果很不错。对于整数溢出的问题其实可以不用担心，因为回文数字肯定不会溢出。</p>
+<blockquote>
+<ol start="14">
+<li>最长公共前缀</li>
+</ol>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">longestCommonPrefix</span><span class="params">(String[] strs)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(strs.length&lt;=<span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="string">""</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        StringBuilder res = <span class="keyword">new</span> StringBuilder(<span class="string">""</span>);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;;j++)&#123;</span><br><span class="line">            <span class="keyword">boolean</span> flag =<span class="keyword">true</span>;</span><br><span class="line">            <span class="keyword">char</span> publicChar = <span class="string">' '</span>;</span><br><span class="line">            <span class="keyword">if</span>(strs[<span class="number">0</span>]!=<span class="keyword">null</span> &amp;&amp; strs[<span class="number">0</span>].length()&gt;=j+<span class="number">1</span>)&#123;</span><br><span class="line">                publicChar = strs[<span class="number">0</span>].charAt(j);</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">           <span class="keyword">for</span>(<span class="keyword">int</span> i =<span class="number">0</span>;i&lt;strs.length;i++)&#123;</span><br><span class="line">                String te = strs[i];</span><br><span class="line">                <span class="keyword">if</span>(te!=<span class="keyword">null</span> &amp;&amp;  te.length()&gt;=j+<span class="number">1</span> &amp;&amp; publicChar==te.charAt(j))&#123;</span><br><span class="line">                    <span class="keyword">continue</span>;</span><br><span class="line">                &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                    flag=<span class="keyword">false</span>;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(flag )&#123;</span><br><span class="line">                res.append(publicChar);</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res.toString();</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>最开始写的时候没有考虑到String获取长度的是length()方法与数组的length调用方式是不同的，导致编译未通过。后来测试案例又未通过<code>&quot;&quot;</code>的校验。测试了一番之后才知道<code>&quot;&quot;</code>的长度为0，在调用length()方法后，应该判断的条件是字符串的长度大于数组下标+1的值。</p>
+<p>我的这个算法的最坏的时间复杂度为O(m*n)，m为数组的长度，n为公共前缀的字符数。查看了题解后发现与题解中的算法二思路相同，但是代码实现没有它的简单。</p>
+<h2 id="Review"><a href="#Review" class="headerlink" title="Review"></a>Review</h2><p>continue reading 《effective java 》</p>
 <ul>
-<li><p>Item 5 : Prefer Dependency injection to hardwiring resources.</p>
+<li><p>Item 10 Obey the general contract when overriding equals</p>
 <blockquote>
-<ol>
-<li>static utility classes and singletons are inappropriate for classes whose behavior is parameterized by an underlying resource.</li>
-<li>a simple pattern that satisfies that requirement is to pass the resource into the constructor when creating instance. This is one form of Dependency injection .</li>
-<li>Do not use a singleton or static utility class to implements a class that depends on one or more   underlying resource whose  behavior affects that of class. And do not have the class create these resource.Instead, pass the resources,or factories to create them, into the constructor.</li>
-</ol>
-</blockquote>
+<ul>
+<li>Each instance of the class is inherently unique.</li>
+<li><strong>There is no need for the class to privide a “logical equality” test.</strong> For example,<em>java.util.regex.Pattern</em> could have overridden equals to check whether two Pattern instances represented exactly the same regular expression.But the client user doesn’t need this function.</li>
+<li>A superclass has already overriden equals, and the superclass behavior is approriate for this class.For example, most Set implementations inherit their equals implementation from AbstractSet, List implementations from AbstractList, and Map implementations from AbstractMap.</li>
+<li><strong>It’s  appropriate for you to overriden equal method when a class has a notion of <em>logical equality</em> that differ from mere object identity and a superclass has not already overridden equals.</strong> This is generally the case for value classes. A value class is simply a class that represents a value, such as Integer or String. A clent user need invoke equals method to find out whether they are logically equivalent or they refer to same object.</li>
+<li>Here are some contract for overriden the <em>equals method</em>. <ul>
+<li>Reflexive: For any non-null reference value x, x.equals(x) must return true.</li>
+<li>Symmetric: For any non-null reference values x and y, x.equals(y) must return true if and only if y.equals(x) returns true.</li>
+<li>Transitive: For any non-null reference values x, y, z, if x.equals(y) returns true and y.equals(z) returns true, then x.equals(z) must return true.</li>
+<li>Consistent: For any non-null reference values x and y, multiple invocations of x.equals(y) must consistently return true or consistently return false, provided no information used in equals comparisons is modified.</li>
+<li>For any non-null reference value x, x.equals(null) must return false.</li>
+</ul>
 </li>
-<li><p>Item 6 : Avoid creating unnecessary object.</p>
-<blockquote>
-<ol>
-<li>you can often avoid creating unnecessary object by using <code>static factory method</code> in preference to constructor on immutable classes that provide both.like use <code>String a= &quot;banana&quot;</code> ,not <code>String a = new String(&quot;banana&quot;)</code>. Besides,<code>Boolean(String)</code> is deprecated in Java 9,cause it must create the instance each time it’s invoked.The factory method <code>Boolean.valueOf(String)</code> is preferable to the constructor. </li>
-<li>you can also reuse the <strong>mutable </strong>object if you know it won’t be modified. Some object creations are so expensive , cache it for reuse will provides significant performance gains if they are invoked frequently. if the object is immutable , it is obvious it can be reused safely.</li>
-<li>Another way to create unnecessary object is <strong>autoboxing</strong> .we should prefer primitives to boxed primitives , and watch out unintentional autoboxing.</li>
-<li>Conversely,avoid object creation by maintaining you own object pool is a bad idea,unless the object is extremely heavyweight.</li>
-</ol>
+</ul>
 </blockquote>
 </li>
 </ul>
-<h2 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h2><p>这周在工作中遇到一个问题，当我试图把一个很大的文件通过流转换为<code>String</code>存储时，这个转换有时候会出错，报出<code>OutOfMemoryError:null</code>的错误。随即我开始调整内存大小，但是无论我怎么调整都没有用。</p>
-<p>当我观察后发现，错误信息的后面是<code>null</code>而不是通常的堆栈溢出等。于是我开始跟踪源码，发现当我用流读进来后，用<code>StringBuilder</code>去拼接成字符串。然而<code>String</code>的字符数组的最大长度为：$$2^{31}=2^{10}\times2^{10}\times2^{10}\times2^{1}=1024\times1024\times1024\times2$$，即2GB。而我的文件刚好大于2GB。所以之前我在转其他文件的时候没有报错是由于文件小于2GB。此处的<code>OOM</code>错误是<code>StringBuilder</code>抛出的，而不是由于堆内存 不够导致的内存溢出。</p>
-<h2 id="Share"><a href="#Share" class="headerlink" title="Share"></a>Share</h2><p>无</p>
+<h2 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h2><p>在使用vim编辑时，可以使用文本对象来进行选择。如：</p>
+<p><img src="/2019/04/27/ARTS-5/微信截图_20190505222619.png" alt=""></p>
+<p>同时还可以使用<code>ci}</code>或<code>da&quot;</code>、<code>ya&quot;</code>这种操作来将选中的部分替换、删除、复制。其中的<code>i</code>和<code>a</code>可以理解为<code>inside</code>和<code>arround</code>;<code>a&quot;</code>会选中由双引号括起来的字,<code>i}</code>会选中在一对大括号里面的内容。</p>
+<p>除此之外，还可以使用<code>daw</code>、<code>ciw</code>、<code>yaw</code>这种操作来对一个单词进行删除、替换、复制等。</p>
+<h2 id="Share"><a href="#Share" class="headerlink" title="Share"></a>Share</h2><p>放假期间在读《Java并发编程艺术》这本书。在读完了《Java并发编程实战》再来读这本书，发现很多东西，理解起来更容易了。同时这本书也对底层的指令实现原理讲解的更透彻，推荐阅读。</p>
+<p><img src="/2019/04/27/ARTS-5/Java并发编程的艺术.png" alt=""></p>
 
       
     </div>
@@ -477,8 +491,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/04/03/ARTS-2/" rel="next" title="ARTS打卡第二周">
-                <i class="fa fa-chevron-left"></i> ARTS打卡第二周
+              <a href="/2019/04/16/ARTS-3/" rel="next" title="ARTS补卡第三周">
+                <i class="fa fa-chevron-left"></i> ARTS补卡第三周
               </a>
             
           </div>
@@ -487,8 +501,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/04/27/ARTS-5/" rel="prev" title="ARTS打卡第五周">
-                ARTS打卡第五周 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/04/27/ARTS-4/" rel="prev" title="ARTS打卡第四周">
+                ARTS打卡第四周 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -666,7 +680,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Algorithm"><span class="nav-number">1.</span> <span class="nav-text">Algorithm</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Review"><span class="nav-number">2.</span> <span class="nav-text">Review</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Tips"><span class="nav-number">3.</span> <span class="nav-text">Tips</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Share"><span class="nav-number">4.</span> <span class="nav-text">Share</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#ARTS第五周"><span class="nav-number">1.</span> <span class="nav-text">ARTS第五周</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Algorithm"><span class="nav-number">1.1.</span> <span class="nav-text">Algorithm</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Review"><span class="nav-number">1.2.</span> <span class="nav-text">Review</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Tips"><span class="nav-number">1.3.</span> <span class="nav-text">Tips</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Share"><span class="nav-number">1.4.</span> <span class="nav-text">Share</span></a></li></ol></li></ol></div>
             
 
           </div>
