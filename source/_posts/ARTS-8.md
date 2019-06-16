@@ -7,7 +7,7 @@ tags: "ARTS"
 
 # ARTS第八周
 
-本次ARTS主要包括：合并两个有序链表算法题；《effective java》 关于建议实现comparable接口；分享mysql中关于插入重复记录的几种处理方式。
+本次ARTS主要包括：合并两个有序链表算法题；《effective java》 关于建议实现comparable接口；工作中学到的mysql中关于插入重复记录的几种处理方式。
 
 <!--more-->
 
@@ -111,3 +111,4 @@ class Solution {
 
 ## Share
 
+无
