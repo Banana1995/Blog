@@ -5,7 +5,7 @@ categories: "Java基础"
 tags: "ARTS"
 ---
 
-# ARTS第八周
+# ARTS第九周
 
 本次ARTS主要包括：合并两个有序数组算法题；《effective java》 中关于类的访问权限设置；vim中标记跳转的用法；分享关于java中锁的底层实现机制。
 
