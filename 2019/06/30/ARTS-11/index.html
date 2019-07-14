@@ -81,18 +81,18 @@
 
 
 
-<meta name="description" content="上周工作任务很重，周日没来得及打卡，今天补上。真心希望忙完这一阵可以轻松点，不然真的撑不下去了。">
+<meta name="description" content="ARTS第十一周本次ARTS主要包括：564题（通过删除匹配到字典里最长的单词）和767题（重构字符串）算法题；《effective java》中关于类的最小可修改和接口优于继承的内容。">
 <meta name="keywords" content="ARTS">
 <meta property="og:type" content="article">
-<meta property="og:title" content="ARTS补卡第三周">
-<meta property="og:url" content="http://yoursite.com/2019/04/16/ARTS-3/index.html">
+<meta property="og:title" content="ARTS打卡第十一周">
+<meta property="og:url" content="http://yoursite.com/2019/06/30/ARTS-11/index.html">
 <meta property="og:site_name" content="小蚂蚁爱吃香蕉">
-<meta property="og:description" content="上周工作任务很重，周日没来得及打卡，今天补上。真心希望忙完这一阵可以轻松点，不然真的撑不下去了。">
+<meta property="og:description" content="ARTS第十一周本次ARTS主要包括：564题（通过删除匹配到字典里最长的单词）和767题（重构字符串）算法题；《effective java》中关于类的最小可修改和接口优于继承的内容。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-07-14T03:23:26.024Z">
+<meta property="og:updated_time" content="2019-07-14T03:23:26.016Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="ARTS补卡第三周">
-<meta name="twitter:description" content="上周工作任务很重，周日没来得及打卡，今天补上。真心希望忙完这一阵可以轻松点，不然真的撑不下去了。">
+<meta name="twitter:title" content="ARTS打卡第十一周">
+<meta name="twitter:description" content="ARTS第十一周本次ARTS主要包括：564题（通过删除匹配到字典里最长的单词）和767题（重构字符串）算法题；《effective java》中关于类的最小可修改和接口优于继承的内容。">
 
 
 
@@ -122,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/04/16/ARTS-3/"/>
+  <link rel="canonical" href="http://yoursite.com/2019/06/30/ARTS-11/"/>
 
 
 
 
 
-  <title>ARTS补卡第三周 | 小蚂蚁爱吃香蕉</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  <title>ARTS打卡第十一周 | 小蚂蚁爱吃香蕉</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
   
 
 
@@ -299,7 +299,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/16/ARTS-3/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/30/ARTS-11/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="小蚂蚁爱吃香蕉">
@@ -316,7 +316,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">ARTS补卡第三周</h1>
+          <h1 class="post-title" itemprop="name headline">ARTS打卡第十一周</h1>
         
 
         <div class="post-meta">
@@ -328,8 +328,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-16T21:20:29+08:00">
-                2019-04-16
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-06-30T20:28:39+08:00">
+                2019-06-30
               </time>
             
 
@@ -384,7 +384,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  645
+                  886
                 </span>
               
 
@@ -409,38 +409,56 @@
       
 
       
-        <p>上周工作任务很重，周日没来得及打卡，今天补上。真心希望忙完这一阵可以轻松点，不然真的撑不下去了。</p>
+        <h1 id="ARTS第十一周"><a href="#ARTS第十一周" class="headerlink" title="ARTS第十一周"></a>ARTS第十一周</h1><p>本次ARTS主要包括：564题（通过删除匹配到字典里最长的单词）和767题（重构字符串）算法题；《effective java》中关于类的最小可修改和接口优于继承的内容。</p>
 <a id="more"></a>
 <h2 id="Algorithm"><a href="#Algorithm" class="headerlink" title="Algorithm"></a>Algorithm</h2><blockquote>
-<p>237.删除链表中的结点</p>
-</blockquote>
-<p>本来是一道很简单的题，没有理解清楚变量<code>x</code>的含义，结果导致使用了递归还是没有做出来，很可惜；</p>
-<p>贴上最后的解法：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * public class ListNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     ListNode next;</span></span><br><span class="line"><span class="comment"> *     ListNode(int x) &#123; val = x; &#125;</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">deleteNode</span><span class="params">(ListNode node)</span> </span>&#123;</span><br><span class="line">        ListNode nextNode =node.next;</span><br><span class="line">        node.val = nextNode.val;</span><br><span class="line">        node.next = nextNode.next;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="Review"><a href="#Review" class="headerlink" title="Review"></a>Review</h2><p>continue reading 《effective java》.</p>
-<ul>
-<li><p>Item 5 : Prefer Dependency injection to hardwiring resources.</p>
-<blockquote>
-<ol>
-<li>static utility classes and singletons are inappropriate for classes whose behavior is parameterized by an underlying resource.</li>
-<li>a simple pattern that satisfies that requirement is to pass the resource into the constructor when creating instance. This is one form of Dependency injection .</li>
-<li>Do not use a singleton or static utility class to implements a class that depends on one or more   underlying resource whose  behavior affects that of class. And do not have the class create these resource.Instead, pass the resources,or factories to create them, into the constructor.</li>
+<ol start="524">
+<li>Longest word in Dictionary through Deleting</li>
 </ol>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">     <span class="function"><span class="keyword">public</span> String <span class="title">findLongestWord</span><span class="params">(String s, List&lt;String&gt; d)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (s == <span class="keyword">null</span> || s.length()&lt;=<span class="number">0</span>||d.size() &lt;= <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="string">""</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        Collections.sort(d, <span class="keyword">new</span> compareSpecial());</span><br><span class="line">        <span class="keyword">for</span> (String word : d) &#123;</span><br><span class="line">            <span class="keyword">if</span> (isSubStr(s,word)) &#123;</span><br><span class="line">                <span class="keyword">return</span> word;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">""</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">boolean</span> <span class="title">isSubStr</span><span class="params">(String s, String word)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(word==<span class="string">""</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> j = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; word.length(); i++) &#123;</span><br><span class="line">            <span class="keyword">if</span>(j&gt;=s.length())&#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">while</span> (!(s.charAt(j) == word.charAt(i))) &#123;</span><br><span class="line">                j++;</span><br><span class="line">                <span class="keyword">if</span> (j &gt;= s.length()) &#123;</span><br><span class="line">                    <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            j++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">compareSpecial</span> <span class="keyword">implements</span> <span class="title">Comparator</span>&lt;<span class="title">String</span>&gt; </span>&#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compare</span><span class="params">(String o1, String o2)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">if</span> (o1.length() &gt; o2.length()) &#123;</span><br><span class="line">                <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (o1.length() == o2.length()) &#123;</span><br><span class="line">                <span class="keyword">return</span> o1.compareTo(o2);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>整体的思想是，通过自定义的Comparator实现由大到小先按照字符的长度，再按照字典顺序排序。将整个数组里的字符串都排序好，再遍历给定的字符串s和数组里的单个单词进行字符匹配。</p>
+<blockquote>
+<ol start="767">
+<li>Reorganize String </li>
+</ol>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">reorganizeString</span><span class="params">(String S)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> N = S.length();</span><br><span class="line">    <span class="keyword">int</span>[] counts = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">26</span>];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">char</span> c: S.toCharArray()) counts[c-<span class="string">'a'</span>] += <span class="number">100</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">26</span>; ++i) counts[i] += i;</span><br><span class="line">    <span class="comment">//Encoded counts[i] = 100*(actual count) + (i)</span></span><br><span class="line">        Arrays.sort(counts);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">char</span>[] ans = <span class="keyword">new</span> <span class="keyword">char</span>[N];</span><br><span class="line">    <span class="keyword">int</span> t = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> code: counts) &#123;</span><br><span class="line">        <span class="keyword">int</span> ct = code / <span class="number">100</span>;</span><br><span class="line">        <span class="keyword">char</span> ch = (<span class="keyword">char</span>) (<span class="string">'a'</span> + (code % <span class="number">100</span>));</span><br><span class="line">        <span class="keyword">if</span> (ct &gt; (N+<span class="number">1</span>) / <span class="number">2</span>) <span class="keyword">return</span> <span class="string">""</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; ct; ++i) &#123;</span><br><span class="line">            <span class="keyword">if</span> (t &gt;= N) t = <span class="number">0</span>;</span><br><span class="line">            ans[t] = ch;</span><br><span class="line">            t += <span class="number">2</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">        <span class="keyword">return</span> String.valueOf(ans);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这一题没做出来，采用的是讨论区一位前辈的思想。大体上运用了计数排序的思想，不过这个解法有两个点很厉害：一是采用乘100，再加上数组下标的方式，来保存排序前每个数组下标的值，方便排序后转换为字符。另一个是采用循环数组的方法将每个字符放到字符串对应的位置上。</p>
+<h2 id="Review"><a href="#Review" class="headerlink" title="Review"></a>Review</h2><p>continue reading 《effective java》</p>
+<ul>
+<li><p>Item 19: Design and document for inheritance or else prohibit it</p>
+<blockquote>
+<ul>
+<li>First, the class must document its self-use of override methods;</li>
+<li>a class may have to provide hooks into its internal working in the form of judiciously chosen protected methods;</li>
+<li>The onlt way to test a class designed for inheritance is to write subclasses;</li>
+<li>Constructors must not invoke overridable methods, directly or indirectly;</li>
+<li>Prohibit subclassing in classes that are not designed and documented to be safety subclassed. One way to prohibit subclassing is declare the class final. The Second is make all constructors private or package-private and to add public static factories in place of the constructors.</li>
+</ul>
 </blockquote>
 </li>
-<li><p>Item 6 : Avoid creating unnecessary object.</p>
+<li><p>Item 20: Prefer interfaces to abstract classes</p>
 <blockquote>
-<ol>
-<li>you can often avoid creating unnecessary object by using <code>static factory method</code> in preference to constructor on immutable classes that provide both.like use <code>String a= &quot;banana&quot;</code> ,not <code>String a = new String(&quot;banana&quot;)</code>. Besides,<code>Boolean(String)</code> is deprecated in Java 9,cause it must create the instance each time it’s invoked.The factory method <code>Boolean.valueOf(String)</code> is preferable to the constructor. </li>
-<li>you can also reuse the <strong>mutable </strong>object if you know it won’t be modified. Some object creations are so expensive , cache it for reuse will provides significant performance gains if they are invoked frequently. if the object is immutable , it is obvious it can be reused safely.</li>
-<li>Another way to create unnecessary object is <strong>autoboxing</strong> .we should prefer primitives to boxed primitives , and watch out unintentional autoboxing.</li>
-<li>Conversely,avoid object creation by maintaining you own object pool is a bad idea,unless the object is extremely heavyweight.</li>
-</ol>
+<ul>
+<li>Existing classes can easily be retrofitted to implement a new interface.</li>
+<li>To summarize, an interface is generally the best way to define a type that permits multiple implementations. If you export a nontrivial interface, you should strongly consider providing a skeletal implementation to go with it. To the extent possible, you should provide the skeletal implementation via default methods on the interface so that all implementors of the interface can make use of it. That said, restrictions on interfaces typically mandate that a skeletal implementation take the form of an abstract class.</li>
+</ul>
+</blockquote>
+</li>
+<li><p>Item 21: Design interface for posterity</p>
+<blockquote>
+<ul>
+<li>Java 8 provide <em>default</em> to allow the addition of  method to  existing interfaces.But it is <strong><em>fraught</em></strong> !</li>
+<li>The declaration for a default method includes a default implementation that is used by all classes that implement the interface but not implement the default method.</li>
+<li>In the presence of default methods, existing implementations of an interface  may compile without error or warning but fail at runtime.</li>
+<li>Using default methods to add new methods should be avoided unless the need is critical, in which case you should think long and hard about whether an existing interface implementation might be broken by your default method implementation.</li>
+<li>It may be possible to correct some interface flaws after an interface is released , But you cannot count on it.</li>
+</ul>
 </blockquote>
 </li>
 </ul>
-<h2 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h2><p>这周在工作中遇到一个问题，当我试图把一个很大的文件通过流转换为<code>String</code>存储时，这个转换有时候会出错，报出<code>OutOfMemoryError:null</code>的错误。随即我开始调整内存大小，但是无论我怎么调整都没有用。</p>
-<p>当我观察后发现，错误信息的后面是<code>null</code>而不是通常的堆栈溢出等。于是我开始跟踪源码，发现当我用流读进来后，用<code>StringBuilder</code>去拼接成字符串。然而<code>String</code>的字符数组的最大长度为：$$2^{31}=2^{10}\times2^{10}\times2^{10}\times2^{1}=1024\times1024\times1024\times2$$，即2GB。而我的文件刚好大于2GB。所以之前我在转其他文件的时候没有报错是由于文件小于2GB。此处的<code>OOM</code>错误是<code>StringBuilder</code>抛出的，而不是由于堆内存 不够导致的内存溢出。</p>
+<h2 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h2><p>无</p>
 <h2 id="Share"><a href="#Share" class="headerlink" title="Share"></a>Share</h2><p>无</p>
 
       
@@ -472,8 +490,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/04/03/ARTS-2/" rel="next" title="ARTS打卡第二周">
-                <i class="fa fa-chevron-left"></i> ARTS打卡第二周
+              <a href="/2019/06/19/ARTS-10/" rel="next" title="ARTS打卡第十周">
+                <i class="fa fa-chevron-left"></i> ARTS打卡第十周
               </a>
             
           </div>
@@ -481,10 +499,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/04/27/ARTS-4/" rel="prev" title="ARTS打卡第四周">
-                ARTS打卡第四周 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -661,7 +675,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Algorithm"><span class="nav-number">1.</span> <span class="nav-text">Algorithm</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Review"><span class="nav-number">2.</span> <span class="nav-text">Review</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Tips"><span class="nav-number">3.</span> <span class="nav-text">Tips</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Share"><span class="nav-number">4.</span> <span class="nav-text">Share</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#ARTS第十一周"><span class="nav-number">1.</span> <span class="nav-text">ARTS第十一周</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Algorithm"><span class="nav-number">1.1.</span> <span class="nav-text">Algorithm</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Review"><span class="nav-number">1.2.</span> <span class="nav-text">Review</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Tips"><span class="nav-number">1.3.</span> <span class="nav-text">Tips</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Share"><span class="nav-number">1.4.</span> <span class="nav-text">Share</span></a></li></ol></li></ol></div>
             
 
           </div>
