@@ -13,6 +13,8 @@ This is a summary of binary search algorithm.
 
 ## Item 1: need find a number is exactly equal to the target
 
+This circumstances we can use this schema:
+
 
 
 ## Item 2: find first no more than target 
