@@ -3,7 +3,7 @@
   <entry>
     <title><![CDATA[Binary Search]]></title>
     <url>%2F2019%2F08%2F03%2FBinary%20Search%2F</url>
-    <content type="text"><![CDATA[Binary SearchThis is a summary of binary search algorithm. Item 1: need find a number is exactly equal to the targetItem 2: find first no more than targetItem 3: find first greater than targetItem 4: Use subfunction as the conditionsItem 5 : The OthersCitationsLeetCode Binary Search Summary 二分搜索法小结]]></content>
+    <content type="text"><![CDATA[Binary SearchThis is a summary of binary search algorithm. Item 1: need find a number is exactly equal to the targetThis circumstances we can use this schema: Item 2: find first no more than targetItem 3: find first greater than targetItem 4: Use subfunction as the conditionsItem 5 : The OthersCitationsLeetCode Binary Search Summary 二分搜索法小结]]></content>
       <categories>
         <category>Java基础</category>
       </categories>
