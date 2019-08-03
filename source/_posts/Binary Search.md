@@ -15,6 +15,7 @@ This is a summary of binary search algorithm.
 
 
 
+<<<<<<< HEAD
 ## Item 2: find first no more than target 
 
 
@@ -36,6 +37,19 @@ This is a summary of binary search algorithm.
 ## Citations
 
  [LeetCode Binary Search Summary 二分搜索法小结](https://www.cnblogs.com/grandyang/p/6854825.html)
+=======
+## Item 2: 
+
+
+
+
+
+## Citations
+
+[1. LeetCode Binary Search Summary 二分搜索法小结]: https://www.cnblogs.com/grandyang/p/6854825.html	"LeetCode Binary Search Summary 二分搜索法小结"
+
+
+>>>>>>> 39f1deba26642f1e2ad95680eecde5f5f31cd8fa
 
 
 
