@@ -34,8 +34,7 @@ This is a summary of binary search algorithm.
 
 
 ## Citations
-
- [LeetCode Binary Search Summary 二分搜索法小结](https://www.cnblogs.com/grandyang/p/6854825.html)
+[LeetCode Binary Search Summary 二分搜索法小结](https://www.cnblogs.com/grandyang/p/6854825.html)
 
 
 
