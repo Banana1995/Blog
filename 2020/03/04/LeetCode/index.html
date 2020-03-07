@@ -89,7 +89,7 @@
 <meta property="og:site_name" content="小蚂蚁爱吃香蕉">
 <meta property="og:description" content="LeetCode记录总结本文章主要记录LeetCode刷题学到的知识">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-03-07T08:54:14.174Z">
+<meta property="og:updated_time" content="2020-03-07T09:00:39.907Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="leetcode记录">
 <meta name="twitter:description" content="LeetCode记录总结本文章主要记录LeetCode刷题学到的知识">
@@ -384,7 +384,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1,288
+                  1,377
                 </span>
               
 
@@ -448,6 +448,8 @@
 <p>Given a string, write a function to check if it is a permutation of a palin­ drome. A palindrome is a word or phrase that is the same forwards and backwards. A permutation is a rearrangement of letters. The palindrome does not need to be limited to just dictionary words.</p>
 </blockquote>
 <p>可以把题目中的回文字符串理解为一个字符串中字母出现次数为奇数的不超过1个。理解了这个之后，就可以使用哈希映射的方式来解决这个问题了，先将每个字母对应的数字放到数组中，然后将数组的值奇数，作为出现此处。最后判断次数是否为奇数即可。此处判断是否为奇数可以使用<code>(a&amp;1)==1</code>来判断，若位与后结果为1，则说明是奇数。</p>
+<p>关于位运算总结可以参考这篇博客：<a href="http://blog.tomtung.com/2007/05/bitwise-operation/" target="_blank" rel="noopener">位运算总结</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">canPermutePalindrome</span><span class="params">(String s)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (s==<span class="keyword">null</span>|| s.isEmpty()) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">char</span>[] chars = s.toCharArray();</span><br><span class="line">    HashMap&lt;Character, Integer&gt; letters = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">char</span> aChar : chars) &#123;</span><br><span class="line">        letters.merge(aChar, <span class="number">1</span>, (a, b) -&gt; a + b);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> flag=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> letter : letters.values()) &#123;</span><br><span class="line">        <span class="keyword">if</span> (((letter&amp;<span class="number">1</span>)==<span class="number">1</span>)&amp;&amp; (++flag)&gt;<span class="number">1</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
       
     </div>
