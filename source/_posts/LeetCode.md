@@ -164,3 +164,25 @@ public String replaceSpaces(String S, int length) {
 
 可以把题目中的回文字符串理解为一个字符串中字母出现次数为奇数的不超过1个。理解了这个之后，就可以使用哈希映射的方式来解决这个问题了，先将每个字母对应的数字放到数组中，然后将数组的值奇数，作为出现此处。最后判断次数是否为奇数即可。此处判断是否为奇数可以使用`(a&1)==1`来判断，若位与后结果为1，则说明是奇数。
 
+关于位运算总结可以参考这篇博客：[位运算总结](http://blog.tomtung.com/2007/05/bitwise-operation/)
+
+```java
+    public boolean canPermutePalindrome(String s) {
+        if (s==null|| s.isEmpty()) {
+            return false;
+        }
+        char[] chars = s.toCharArray();
+        HashMap<Character, Integer> letters = new HashMap<>();
+        for (char aChar : chars) {
+            letters.merge(aChar, 1, (a, b) -> a + b);
+        }
+        int flag=0;
+        for (int letter : letters.values()) {
+            if (((letter&1)==1)&& (++flag)>1) {
+                return false;
+            }
+        }
+        return true;
+    }
+```
+
