@@ -95,7 +95,7 @@ Unicode相关：[字符编码笔记：ASCII，Unicode 和 UTF-8](http://www.ruan
 }
 ```
 
-##LCCI.02 Check Permutation
+## LCCI.02 Check Permutation
 
 题目：
 
@@ -186,3 +186,230 @@ public String replaceSpaces(String S, int length) {
     }
 ```
 
+## LCCI.05 One Away
+
+题目：
+
+> There are three types of edits that can be performed on strings: insert a character, remove a character, or replace a character. Given two strings, write a function to check if they are one edit (or zero edits) away.
+>
+
+此题并不是单词的判断字符串少了几个字符的问题，而是两个字符串除了不一样的那个字符外，其他字符的顺序也需要一直。没有想到更好的办法，于是我采用的是双指针暴力法。双指针类的题目需要分清不同情况下两个指针的处理，在这题中，两个字符串长度相差大于1肯定返回false，其他的分为长度相同和长度相差为1来分别处理。长度相同时，最多有一个字符可以不一样。长度相差为1时，短字符串的顺序必须与长字符串一样。
+
+```java
+   public boolean oneEditAway(String first, String second) {
+        if (first == null || second == null) {
+            return true;
+        }
+        String longer = first.length() >= second.length() ? first : second;
+        String shorter = first.length() < second.length() ? first : second;
+        if (longer.length() - shorter.length() > 1) {
+            return false;
+        }
+        if (longer.isEmpty() || shorter.isEmpty()) {
+            return longer.length() - shorter.length() <= 1;
+        }
+        int flag = 0;
+        int i = 0;
+        int j = 0;
+        if (longer.length() == shorter.length()) {
+                    
+            for (int k = 0; k < longer.length(); k++) {
+                if (longer.charAt(k) != shorter.charAt(k)) {
+                    flag++;
+                    if (flag > 1) {
+                        return false;
+                    }
+                }
+            }
+        }else {
+            for (; j < shorter.length(); ) {
+                if (longer.charAt(i) != shorter.charAt(j)) {
+                    i++;
+                    flag++;
+                    if (flag > 1) {
+                        return false;
+                    }
+                    continue;
+                }
+                i++;
+                j++;
+            }
+        }
+        return true;
+    }
+```
+
+## LCCI.06 Compress String
+
+题目：
+
+> Implement a method to perform basic string compression using the counts of repeated characters. For example, the string aabcccccaaa would become a2blc5a3. If the "compressed" string would not become smaller than the original string, your method should return the original string. You can assume the string has only uppercase and lowercase letters (a - z).
+
+这题我采用普通的遍历法做出来了，需要注意的是不能使用哈希映射的方法。因为相同字母在不连续位置出现是不能统计到一起去的。看题解中，有同学**在字符的最后补了一位来规避遍历时处理最后一个字符的特殊情况**，这种思路值得学习。还有的同学采用了双指针的思路，一个指针遍历字符，另个指针统计相同的字符个数。
+
+我的解法：
+
+```java
+    public String compressString(String S) {
+        if (S.isEmpty()||S.length()<3) {
+            return S;
+        }
+        char[] chars = S.toCharArray();
+        StringBuilder sb = new StringBuilder();
+        int repeat = 1;
+        for (int i = 0; i < chars.length; i++) {
+            if (i > 0) {
+                if (chars[i] == chars[i - 1]) {
+                    repeat++;
+                    if (i == chars.length - 1) {
+                        sb.append(chars[i]).append(repeat);
+                    }
+                } else {
+                    sb.append(chars[i - 1]).append(repeat);
+                    repeat = 1;
+                    if (i == chars.length - 1) {
+                        sb.append(chars[i]).append(repeat);
+                    }
+                }
+            }
+        }
+        return S.length() <= sb.length() ? S : sb.toString();
+    }
+```
+
+## LCCI.07 Rotate Matrix
+
+题目：
+
+> Given an image represented by an N x N matrix, where each pixel in the image is 4 bytes, write a method to rotate the image by 90 degrees. Can you do this in place?
+>
+
+一开始我的解题思路是通过新建一个二维数组，然后，将矩阵进行转换，按照`a=j,b=N-i-j`的逻辑转换，最后再将转换后的数组复制到原数组中。这样会导致空间复杂度为O(N)。看了书本上的解法是原地旋转，由外层向内层每一层都是将上边移到右边，右边移到下边，下边移到左边，左边移到上边。通过这种方式完成整个矩阵的旋转。这种方式的实现逻辑交易较为清晰，时间复杂度为O(N2)。修改我的解法后，如下：
+
+```java
+    public void rotate(int[][] matrix) {
+        int N = matrix.length;
+        if (N <= 1) return;
+        for (int layer = 0; layer < N / 2; layer++) {
+            for (int j = layer; j < N - layer - 1; j++) {
+                int top = matrix[layer][j];
+                matrix[layer][j] = matrix[N - j - 1][layer];//left->top
+                matrix[N - j - 1][layer] = matrix[N - layer - 1][N - j - 1];//bottom->left
+                matrix[N - layer - 1][N - j - 1] = matrix[j][N - layer - 1];//right->bottom
+                matrix[j][N - layer - 1] = top;//top->right
+            }
+        }
+    }
+```
+
+矩阵旋转时，可以将矩阵的数组下标写出来，然后找出每一步转换的`i，j`的规律。一般无非就是`x=j,y=length-i-1`这种情况。
+
+## LCCI.08 Zero Matrix
+
+题目：
+
+> Write an algorithm such that if an element in an MxN matrix is 0, its entire row and column are set to 0.
+>
+
+我的思路是将矩阵中应该被清0的行和列分别用数组记录下来。然后再拿行数组和列数组处理矩阵中对应的行和列。但是这样占用的空间复杂度为O(N)。参考书本上给出的优化方案是，将矩阵的第一行和第一列作为行数组和列数组。
+
+```java
+	public void setZeroes(int[][] matrix) {
+        int rows = matrix.length;
+        int cloumns = matrix[0].length;
+        int[] rowsToZero = new int[rows];
+        int[] cloums = new int[cloumns];
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix[i].length; j++) {
+                if (matrix[i][j] == 0) {
+                    rowsToZero[i]=1;
+                    cloums[j]=1;
+                }
+            }
+        }
+        for (int i = 0; i < rowsToZero.length; i++) {
+            if (rowsToZero[i] == 1) {
+                //set i row to 0
+                for (int j = 0; j < matrix[i].length; j++) {
+                    matrix[i][j]=0;
+                }
+            }
+        }
+        for (int i = 0; i < cloums.length; i++) {
+            if (cloums[i] == 1) {
+                for (int j = 0; j < matrix.length; j++) {
+                    matrix[j][i]=0;
+                }
+            }
+        }
+    }
+```
+
+## LCCI.09 String Rotation
+
+题目：
+
+> Given two strings, s1 and s2, write code to check if s2 is a rotation of s1 (e.g.,"waterbottle" is a rotation of"erbottlewat"). Can you use only one call to the method that checks if one word is a substring of another?
+>
+
+这一题我给它想的复杂了，第一反应是通过双指针来做，结果没有做出来。考虑的情况漏了。看了书本才想起用包含子串的方法应该是最简单的。
+
+```java
+    public boolean isFlipedString(String s1, String s2) {
+        if (s1.isEmpty() || s2.isEmpty()) {
+            return s1.isEmpty() && s2.isEmpty();
+        }
+        if (s1.length() != s2.length()) {
+            return false;
+        }
+           String s1s1 = s1+s1;
+        return s1s1.contains(s2);
+    }
+```
+
+## LCCI.10 Remove Duplicate Node
+
+题目：
+
+> Write code to remove duplicates from an unsorted linked list.
+
+此题的follow up是想让不用额外的空间来实现，于是我直接采用双指针法。一个指针指向尾部，另个之前在前面做判重。这样会增加时间复杂度，为O(N2)；
+
+```java
+    public ListNode removeDuplicateNodes(ListNode head) {
+        if (head==null || head.next == null) {
+            return head;
+        }
+        ListNode tail = head;
+        ListNode p1 = head;
+        while (tail.next != null) {
+            ListNode next = tail.next;
+            boolean nextIsDup = false;
+            while (p1 != tail.next) {
+                if (p1.val == next.val) {
+                    nextIsDup = true;
+                    break;
+                }
+                p1 = p1.next;
+            }
+            p1= head;
+            if (nextIsDup) {
+                //delete current node
+                tail.next= next.next;
+            }else {
+                tail = next;
+            }
+        }
+        return head;
+    }
+```
+
+
+
+
+
+## 经验总结
+
+- 字符串的调换位置、去重、判断奇偶操作这种类型的题目可以考虑将采取哈希映射为数组，或者bit位。用位操作来完成最后的识别判断。注意，当有顺序要求，不能去重统计时则不适用于哈希映射法。
+- 双指针类问题，需要仔细分清不同 代码分支情况，一条条的梳理清楚。
+- 对字符数组遍历，边界问题的测试需要考虑到字符长度为1，为0，遍历到尾部最后一个字符的处理逻辑；可以尝试通过在字符的最后补了一位来规避遍历时处理最后一个字符的特殊情况。
