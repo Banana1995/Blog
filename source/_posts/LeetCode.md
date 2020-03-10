@@ -65,7 +65,7 @@ public boolean isAnagram(String s, String t) {
 
 Unicode相关：[字符编码笔记：ASCII，Unicode 和 UTF-8](http://www.ruanyifeng.com/blog/2007/10/ascii_unicode_and_utf-8.html)
 
-## LCCI.01 Is Unique
+## LCCI.01.01 Is Unique
 
 题目：
 
@@ -95,7 +95,7 @@ Unicode相关：[字符编码笔记：ASCII，Unicode 和 UTF-8](http://www.ruan
 }
 ```
 
-## LCCI.02 Check Permutation
+## LCCI.01.02 Check Permutation
 
 题目：
 
@@ -125,7 +125,7 @@ Unicode相关：[字符编码笔记：ASCII，Unicode 和 UTF-8](http://www.ruan
     }
 ```
 
-## LCCI.03 String toURL 
+## LCCI.01.03 String toURL 
 
 题目：
 
@@ -155,7 +155,7 @@ public String replaceSpaces(String S, int length) {
     }
 ```
 
-## LCCI.04 Palindrome Permutation
+## LCCI.01.04 Palindrome Permutation
 
 题目：
 
@@ -186,7 +186,7 @@ public String replaceSpaces(String S, int length) {
     }
 ```
 
-## LCCI.05 One Away
+## LCCI.01.05 One Away
 
 题目：
 
@@ -239,7 +239,7 @@ public String replaceSpaces(String S, int length) {
     }
 ```
 
-## LCCI.06 Compress String
+## LCCI.01.06 Compress String
 
 题目：
 
@@ -277,7 +277,7 @@ public String replaceSpaces(String S, int length) {
     }
 ```
 
-## LCCI.07 Rotate Matrix
+## LCCI.01.07 Rotate Matrix
 
 题目：
 
@@ -304,7 +304,7 @@ public String replaceSpaces(String S, int length) {
 
 矩阵旋转时，可以将矩阵的数组下标写出来，然后找出每一步转换的`i，j`的规律。一般无非就是`x=j,y=length-i-1`这种情况。
 
-## LCCI.08 Zero Matrix
+## LCCI.01.08 Zero Matrix
 
 题目：
 
@@ -345,7 +345,7 @@ public String replaceSpaces(String S, int length) {
     }
 ```
 
-## LCCI.09 String Rotation
+## LCCI.01.09 String Rotation
 
 题目：
 
@@ -367,7 +367,7 @@ public String replaceSpaces(String S, int length) {
     }
 ```
 
-## LCCI.10 Remove Duplicate Node
+## LCCI.02.01 Remove Duplicate Node
 
 题目：
 
@@ -404,7 +404,68 @@ public String replaceSpaces(String S, int length) {
     }
 ```
 
+## LCCI.02.02 Kth Node From End of List
 
+题目：
+
+> Implement an algorithm to find the kth to last element of a singly linked list. Return the value of the element.
+
+这题的第一想法觉得很简单，用遍历就可以实现。看了follow up 说可以用递归和双指针。递归没有什么想法，于是便实现了一个双指针版本的：
+
+```java
+    public int kthToLast(ListNode head, int k) {
+        ListNode b = head;
+        ListNode a = head;
+        for (int i = 1; i < k; i++) {
+            b=b.next;
+        }
+        while (b.next != null) {
+            b=b.next;
+            a=a.next;
+        }
+        return a.val;
+    }
+```
+
+贴上题解里的递归解法：
+
+```java
+// 递归
+class Solution {
+    // 开始全局变量 K 保持不变
+    int K = 1;
+    public int kthToLast(ListNode head, int k) {
+        // 当节点在最末尾时触发返回
+        if (head.next == null) return head.val;
+        // 返回的值
+        int val = kthToLast(head.next, k);
+        // 一旦触发返回，从第一个产生返回的位置用 K 计数
+        if (K++ >= k) {
+            // 当到达或超过倒数第 k 时，即 K >= k 时保持返回值不变
+            return val;
+        } else {
+            // 没到达则更新需要返回的值
+            return head.val;
+        }
+    }
+}
+```
+
+## LCCI.02.03 Delete Middle Node
+
+题目：
+
+> Implement an algorithm to delete a node in the middle (i.e., any node but the first and last node, not necessarily the exact middle) of a singly linked list, given only access to that node.
+>
+
+这题我并没有想到解法，其实链表的操作不应该被固定思维给限制住。这题可以通过将当前节点替换为下一节点，并将下一节点删除的方式来实现。代码也非常简单。主要考察的是这种思维。
+
+```java
+    public void deleteNode(ListNode node) {
+        node.val=node.next.val;
+        node.next=node.next.next;
+    }
+```
 
 
 
@@ -413,3 +474,4 @@ public String replaceSpaces(String S, int length) {
 - 字符串的调换位置、去重、判断奇偶操作这种类型的题目可以考虑将采取哈希映射为数组，或者bit位。用位操作来完成最后的识别判断。注意，当有顺序要求，不能去重统计时则不适用于哈希映射法。
 - 双指针类问题，需要仔细分清不同 代码分支情况，一条条的梳理清楚。
 - 对字符数组遍历，边界问题的测试需要考虑到字符长度为1，为0，遍历到尾部最后一个字符的处理逻辑；可以尝试通过在字符的最后补了一位来规避遍历时处理最后一个字符的特殊情况。
+- 链表的删除可以考虑使用后续节点代替当前节点
