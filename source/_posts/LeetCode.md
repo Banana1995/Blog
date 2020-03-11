@@ -467,6 +467,79 @@ class Solution {
     }
 ```
 
+## LCCI.02.04 Partition List
+
+题目：
+
+> Write code to partition a linked list around a value x, such that all nodes less than x come before all nodes greater than or equal to x. If x is contained within the list, the values of x only need to be after the elements less than x (see below). The partition element x can appear anywhere in the "right partition"; it does not need to appear between the left and right partitions.
+>
+
+这一题我的思路是通过使用双指针来做，一个指针做遍历，另个指针指向小于x的数据的next。若遍历遇到小于x的值，则将其与小于x的next交换即可。
+
+```java
+    public ListNode partition(ListNode head, int x) {
+        if (head == null) {
+            return null;
+        }
+        ListNode p1 = head;
+        ListNode p2 = head;
+        while (p2 != null) {
+            if (p2.val < x) {
+                int temp = p1.val;
+                p1.val = p2.val;
+                p2.val = temp;
+                p1 = p1.next;
+            }
+            p2 = p2.next;
+        }
+        return head;
+    }
+```
+
+此处需要注意的是，当我尝试使用如下异或来做交换操作时：
+
+```java
+p1.val = p1.val^p2.val;
+p2.val = p1.val^p2.val;
+p1.val = p1.val^p2.val;
+```
+
+发现在刚开始头指针指向同个对象时，对`p1.val`和`p2.val`做异或操作得出的值为0，再将0复制给`p1.val`，这样使得`p2.val`同时变为了0，因为`p1.val`和`p2.val`指向的是相同的值。
+
+## LCCI.02.05 Sum Lists
+
+题目：
+
+> You have two numbers represented by a linked list, where each node contains a single digit. The digits are stored in reverse order, such that the 1's digit is at the head of the list. Write a function that adds the two numbers and returns the sum as a linked list.
+
+这题一开始我的思路是将链表给合并成整数，再相加，然后再拆成链表。后来看了提示里说尝试用递归，才想到可以用递归来解决这个问题。刚开始的时候，递归写出来了，但是有几个用例总是执行不过，原因是我用的整型变量结果相加之后溢出了，改为了long之后发现还是会溢出。然后想到了不应该用中累加再拆成链表的方式。应该每一个节点算出对应的结果里的节点。递归时直接将节点拼接在一起。
+
+```java
+    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+
+        return sum(l1,l2,0);
+    }
+
+    ListNode sum(ListNode s1, ListNode s2, int buy) {
+        int currentLevelSum = s1.val + s2.val + buy;
+        ListNode currentNode = new ListNode(currentLevelSum % 10);
+        if (s1.next == null && s2.next == null) {
+            if (currentLevelSum / 10 != 0) {
+                currentLevelSum = currentLevelSum/10;
+                currentNode.next = new ListNode(currentLevelSum);
+            }
+            return currentNode;
+        }
+        s1 = s1.next != null ? s1.next : new ListNode(0);
+        s2 = s2.next != null ? s2.next : new ListNode(0);
+
+        currentNode.next = sum(s1, s2, currentLevelSum / 10);
+        return currentNode;
+    }
+```
+
+看题解中也有没有用递归的，不过也是类似的思想，不能将链表所有的数据都加起来再拆成链表， 那样会导致数据溢出。对于递归的题目我还是不太熟悉，做出来有点难度。
+
 
 
 ## 经验总结
@@ -475,3 +548,4 @@ class Solution {
 - 双指针类问题，需要仔细分清不同 代码分支情况，一条条的梳理清楚。
 - 对字符数组遍历，边界问题的测试需要考虑到字符长度为1，为0，遍历到尾部最后一个字符的处理逻辑；可以尝试通过在字符的最后补了一位来规避遍历时处理最后一个字符的特殊情况。
 - 链表的删除可以考虑使用后续节点代替当前节点
+- 在两个引用指向相同对象的，若想对两个对象内的数值进行互换不能采用异或操作。否则会导致结果为0。
