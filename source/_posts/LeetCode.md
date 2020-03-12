@@ -540,7 +540,115 @@ p1.val = p1.val^p2.val;
 
 看题解中也有没有用递归的，不过也是类似的思想，不能将链表所有的数据都加起来再拆成链表， 那样会导致数据溢出。对于递归的题目我还是不太熟悉，做出来有点难度。
 
+## LCCI.02.06  Palindrome Linked List
 
+题目：
+
+> Implement a function to check if a linked list is a palindrome.
+
+这题我的思路是采用双指针或者反转整个链表再对比的方式。双指针我没有想到采用快慢指针这种方式，所以用了反转链表，但是没能实现follow up中的O(n)时间和O(1)空间的复杂度。贴上我的解法：
+
+```java
+   public boolean isPalindrome(ListNode head) {
+        if (head == null) {
+            return false;
+        }
+        ListNode p1 = head;
+        ListNode a = null;
+        while (p1 != null) {
+            ListNode b = new ListNode(p1.val);
+            p1 = p1.next;
+            b.next = a;
+            a = b;
+        }
+        while (head != null) {
+            if (a.val != head.val) {
+                return false;
+            }
+            head = head.next;
+            a = a.next;
+        }
+        return true;
+    }
+```
+
+## LCCI.02.07 Intersection of Two Linked Lists
+
+题目:
+
+> Given two (singly) linked lists, determine if the two lists intersect. Return the inter­ secting node. Note that the intersection is defined based on reference, not value. That is, if the kth node of the first linked list is the exact same node (by reference) as the jth node of the second linked list, then they are intersecting.
+>
+
+这题我刚开始没什么好的思路，只有个暴力的算法思想，找不到能在O(n)时间和O(1)空间内解决的办法。看到了提示才想起来先将长度对齐再用双指针同时往后遍历找。
+
+```java
+    public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+        if (headA == null || headB == null) {
+            return null;
+        }
+        ListNode p1 = headA;
+        ListNode p2 = headB;
+        int len1 = 0;
+        int len2 = 0;
+        while (p1 != null) {
+            len1++;
+            p1 = p1.next;
+        }
+        while (p2 != null) {
+            len2++;
+            p2 = p2.next;
+        }
+        ListNode fast = len1 > len2 ? headA : headB;
+        ListNode lag = len1 > len2 ? headB : headA;
+        int dis = len1 > len2 ? len1 - len2 : len2 - len1;
+        while (dis > 0) {
+            fast=fast.next;
+            dis--;
+        }
+        while (fast != lag) {
+            fast=fast.next;
+            lag=lag.next;
+            if (fast == null) {
+                break;
+            }
+        }
+        if (fast == null) {
+            return null;
+        }
+        return fast;
+    }
+
+```
+
+## LCCI.02.08 Linked List Cycle
+
+题目：
+
+> Given a circular linked list, implement an algorithm that returns the node at the beginning of the loop.
+>
+> Circular linked list: A (corrupt) linked list in which a node's next pointer points to an earlier node, so as to make a loop in the linked list.
+>
+
+这题我一开始没什么好的思路，后来只好用额外的空间将这题解出来了。使用set存储已经遍历过的节点，然后不停的往后将next 节点添加进set中，当发现添加失败时，即为循环的开始点。
+
+```java
+    public ListNode detectCycle(ListNode head) {
+        if (head == null) {
+            return null;
+        }
+        Set<ListNode> set = new HashSet<>();
+        while (head != null) {
+            if (!set.add(head)) {
+                return head;
+            }
+            head=head.next;
+        }
+        return null;
+
+    }
+```
+
+我看题解和书本上有种解法用的是快慢指针，先用快慢指针判断是否会碰撞，若不会碰撞则不会有循环。再判断快慢指针碰撞的位置。当慢指针到达loop点时，快指针为距离loop点的loopsize-k的位置，k为head距离loop点的距离。因此，当碰撞后，碰撞点距离loop点的距离为k。此时只需将慢指针指向head，快指针从碰撞点开始，二者以不断的next，当再次相等时，即为loop点。
 
 ## 经验总结
 
