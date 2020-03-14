@@ -650,10 +650,381 @@ p1.val = p1.val^p2.val;
 
 我看题解和书本上有种解法用的是快慢指针，先用快慢指针判断是否会碰撞，若不会碰撞则不会有循环。再判断快慢指针碰撞的位置。当慢指针到达loop点时，快指针为距离loop点的loopsize-k的位置，k为head距离loop点的距离。因此，当碰撞后，碰撞点距离loop点的距离为k。此时只需将慢指针指向head，快指针从碰撞点开始，二者以不断的next，当再次相等时，即为loop点。
 
+## LCCI.03.01 Three in One
+
+题目：
+
+> Describe how you could use a single array to implement three stacks.
+>
+> Yout should implement push(stackNum, value)、pop(stackNum)、isEmpty(stackNum)、peek(stackNum) methods. stackNum is the index of the stack. value is the value that pushed to the stack.
+>
+> The constructor requires a stackSize parameter, which represents the size of each stack.
+>
+
+该题我一开始理解错了题意，并没有找出很好的解决办法。第一反应是将数组拆分为三份。但是我没有理解到构造器传进来的会是每个栈的长度。看了提示里有说使用环形数组来动态构建栈。这个我没有实现出来，感觉难度有点高，劝退了。
+
+```java
+class TripleInOne {
+
+        private int[] stackArray;
+        private int eachStackSize;
+        private int[] points = new int[3];
+
+        public TripleInOne(int stackSize) {
+            stackArray = new int[stackSize*3];
+            eachStackSize = stackSize ;
+            points[0] = eachStackSize;
+            points[1] = eachStackSize * 2;
+            points[2] = eachStackSize * 3;
+        }
+
+        public boolean isfull(int stackNum) {
+            if (points[stackNum] == eachStackSize * stackNum) {
+                return true;
+            }
+            return false;
+        }
+
+        public void push(int stackNum, int value) {
+            if (isfull(stackNum)) {
+                return;
+            }
+            points[stackNum] = points[stackNum] - 1;
+            stackArray[points[stackNum]] = value;
+        }
+
+        public int pop(int stackNum) {
+            if (isEmpty(stackNum)) {
+                return -1;
+            }
+            points[stackNum] = points[stackNum] + 1;
+            return stackArray[points[stackNum] - 1];
+        }
+
+        public int peek(int stackNum) {
+            if (isEmpty(stackNum)) {
+                return -1;
+            }
+            return stackArray[points[stackNum]];
+        }
+
+        public boolean isEmpty(int stackNum) {
+            if (points[stackNum] == eachStackSize * (stackNum + 1)) {
+                return true;
+            }
+            return false;
+        }
+    }
+```
+
+## LCCI.03.02 Min Stack 
+
+题目：
+
+> How would you design a stack which, in addition to push and pop, has a function min which returns the minimum element? Push, pop and min should all operate in 0(1) time.
+>
+
+这题我的思路是通过数组实现一个堆栈，要求在O(1)时间内返回pop和min，那么就只有用一个指针来记录栈顶和栈中最小值得位置。这么实现的后果是导致这个指针的维护比较复杂，从而在提交的时候报了好几次错。
+
+```java
+class MinStack {
+
+        private int[] array = new int[3];
+        private int topPoint = array.length;
+        private int minPoint = array.length - 1;
+
+        /**
+         * initialize your data structure here.
+         */
+        public MinStack() {
+
+        }
+
+        public void push(int x) {
+            if (topPoint == 0) {
+                int[] temp = new int[array.length * 2];
+                System.arraycopy(array, 0, temp, temp.length - array.length, array.length);
+                topPoint = temp.length - array.length;
+                minPoint = minPoint + temp.length - array.length;
+                array = temp;
+            }
+            topPoint = topPoint - 1;
+            array[topPoint] = x;
+            if (x < array[minPoint]) {
+                minPoint = topPoint;
+            }
+        }
+
+        public void pop() {
+            if (minPoint == topPoint && minPoint < array.length - 1) {
+                minPoint = minPoint + 1;
+                for (int i = minPoint ; i < array.length; i++) {
+                    if (array[i] < array[minPoint]) {
+                        minPoint=i;
+                    }
+                }
+            }
+            topPoint = topPoint + 1;
+        }
+
+        public int top() {
+            return array[topPoint];
+        }
+
+        public int getMin() {
+            return array[minPoint];
+        }
+}
+```
+
+我看书本上这题用的是java本身的Stack类来实现的。再用额外的栈来保存最小值。这样实现起来会简单很多。
+
+## LCCI.03.03 Stack of Plates
+
+题目：
+
+> Imagine a (literal) stack of plates. If the stack gets too high, it might topple. Therefore, in real life, we would likely start a new stack when the previous stack exceeds some threshold. Implement a data structure SetOfStacks that mimics this. SetOfStacks should be composed of several stacks and should create a new stack once the previous one exceeds capacity. SetOfStacks.push() and SetOfStacks.pop() should behave identically to a single stack (that is, pop() should return the same values as it would if there were just a single stack). Follow Up: Implement a function popAt(int index) which performs a pop operation on a specific sub-stack.
+>
+> You should delete the sub-stack when it becomes empty. pop, popAt should return -1 when there's no element to pop.
+>
+
+这题的思想比较简单，但是代码实现较为复杂。我写了很久没能够通过所有的测试用例。最后参考题解里的答案才写了出来。基本思路跟我的是类似的，但是我在代码实现的时候没能够处理好。
+
+```java
+class StackOfPlates {
+        private int cap;
+        private List<Stack> stack = new ArrayList<>();
+
+        public StackOfPlates(int cap) {
+            stack.add(new Stack<>());
+            this.cap = cap;
+        }
+
+        public void push(int val) {
+            if (cap <= 0) {
+                return;
+            }
+            if (stack.isEmpty()||stack.get(stack.size()-1).size() == cap) {
+                stack.add(new Stack<>());
+            }
+            stack.get(stack.size()-1).push(val);
+        }
+
+        public int pop() {
+            return popAt(stack.size()-1);
+        }
+
+        public int popAt(int index) {
+            if (index<0 || index >= stack.size()) {
+                return -1;
+            }
+            Stack<Integer> indexStack = stack.get(index);
+            if (indexStack.isEmpty()) {
+                return -1;
+            }
+            int val = indexStack.pop();
+            if (indexStack.isEmpty()) {
+                stack.remove(indexStack);
+            }
+            return val;
+        }
+    }
+```
+
+## LCCI.03.04 Implement Queue using Stacks
+
+题目：
+
+> Implement a MyQueue class which implements a queue using two stacks.
+
+这题的关键在于队列是先入先出的顺序，而堆栈是后入先出的顺序。因此使用两个堆栈，一个堆栈用于队列的pop和peek，另个队列用于队列的push。这样在需要出队时，只需要将用于push的堆栈出栈再入栈到另个堆栈中。最后使用另个堆栈完成pop和peek即可。
+
+```java
+ class MyQueue {
+
+        private Stack<Integer> oldStack = new Stack<>();
+        private Stack<Integer> newStack = new Stack<>();
+
+        /**
+         * Initialize your data structure here.
+         */
+        public MyQueue() {
+
+        }
+
+        /**
+         * Push element x to the back of queue.
+         */
+        public void push(int x) {
+            newStack.push(x);
+        }
+
+        /**
+         * Removes the element from in front of queue and returns that element.
+         */
+        public int pop() {
+            if (oldStack.isEmpty()) {
+                while (!newStack.isEmpty()) {
+                    oldStack.push(newStack.pop());
+                }
+            }
+            return oldStack.pop();
+        }
+
+        /**
+         * Get the front element.
+         */
+        public int peek() {
+            if (oldStack.isEmpty()) {
+                while (!newStack.isEmpty()) {
+                    oldStack.push(newStack.pop());
+                }
+            }
+            return oldStack.peek();
+        }
+
+        /**
+         * Returns whether the queue is empty.
+         */
+        public boolean empty() {
+            return oldStack.isEmpty() && newStack.isEmpty();
+        }
+    }
+```
+
+## LCCI.03.05 Sort of Stacks
+
+题目：
+
+> Write a program to sort a stack such that the smallest items are on the top. You can use an additional temporary stack, but you may not copy the elements into any other data structure (such as an array). The stack supports the following operations: push, pop, peek, and isEmpty. When the stack is empty, peek should return -1.
+>
+
+这题跟上面题目类似，采用额外的一个堆栈来存储一部分数据。因为排序的堆栈栈顶是最小的，因此可以用另外个堆栈存小于push的值得数据。然后再把小于的那部分值pop出来，加入到排序堆栈中。一开始我在每次push完后都会将小于当前push值得数据都放回到排序堆栈中，后来看了题解，可以采用懒加载的方式。只在需要pop和peek的时候才做这些工作。这样使得我的运行时间得到了很大的优化，从205ms降到了27ms。
+
+```java
+class SortedStack {
+        private Stack<Integer> sortedStack = new Stack<>();
+        private Stack<Integer> tempStack = new Stack<>();
+
+        public SortedStack() {
+
+        }
+
+        public void push(int val) {
+            if (sortedStack.isEmpty() && tempStack.isEmpty()) {
+                sortedStack.push(val);
+                return;
+            }
+            while (sortedStack.peek() < val) {
+                tempStack.push(sortedStack.pop());
+                if (sortedStack.isEmpty()) {
+                    break;
+                }
+            }
+            while (!sortedStack.isEmpty() && !tempStack.isEmpty() && sortedStack.peek() > val &&
+                    tempStack.peek() > val) {
+                sortedStack.push(tempStack.pop());
+            }
+            sortedStack.push(val);
+
+        }
+
+        public void pop() {
+            while (!tempStack.isEmpty()) {
+                sortedStack.push(tempStack.pop());
+            }
+            if (sortedStack.isEmpty()) {
+                return;
+            }
+            sortedStack.pop();
+        }
+
+        public int peek() {
+            while (!tempStack.isEmpty()) {
+                sortedStack.push(tempStack.pop());
+            }
+            if (sortedStack.isEmpty()) {
+                return -1;
+            }
+            return sortedStack.peek();
+        }
+
+        public boolean isEmpty() {
+            return sortedStack.isEmpty();
+        }
+}
+```
+
+## LCCI.03.06 Animal Shelter 
+
+题目：
+
+> An animal shelter, which holds only dogs and cats, operates on a strictly"first in, first out" basis. People must adopt either the"oldest" (based on arrival time) of all animals at the shelter, or they can select whether they would prefer a dog or a cat (and will receive the oldest animal of that type). They cannot select which specific animal they would like. Create the data structures to maintain this system and implement operations such as enqueue, dequeueAny, dequeueDog, and dequeueCat. You may use the built-in Linked list data structure.
+>
+> enqueue method has a animal parameter, animal[0] represents the number of the animal, animal[1] represents the type of the animal, 0 for cat and 1 for dog.
+>
+> dequeue* method returns [animal number, animal type], if there's no animal that can be adopted, return [-1, -1].
+>
+
+这题比较简单，思路就是使用LinkedList来将保存数组。然后在取出的时候，遍历链表判断是猫是狗，再将取出的节点删除即可。
+
+```java
+class AnimalShelf {
+
+        private LinkedList<int[]> shelter = new LinkedList<>();
+        private int[] negative = new int[]{-1, -1};
+
+        public AnimalShelf() {
+
+        }
+
+        public void enqueue(int[] animal) {
+            shelter.add(animal);
+        }
+
+        public int[] dequeueAny() {
+            if (shelter.isEmpty()) {
+                return negative;
+            }
+            return shelter.removeFirst();
+        }
+
+        public int[] dequeueDog() {
+            if (shelter.isEmpty()) {
+                return negative;
+            }
+            for (int i = 0; i < shelter.size(); i++) {
+                if (shelter.get(i)[1] == 1) {
+                    return shelter.remove(i);
+                }
+            }
+            return negative;
+        }
+
+        public int[] dequeueCat() {
+            if (shelter.isEmpty()) {
+                return negative;
+            }
+            for (int i = 0; i < shelter.size(); i++) {
+                if (shelter.get(i)[1] == 0) {
+                    return shelter.remove(i);
+                }
+            }
+            return negative;
+        }
+}
+```
+
+有一个需要注意的点就是，LinkedList是可以用来保存数组的，而且不需要是包装类型`Integer`，直接是原始类型数组即可`int[]`。
+
+
+
 ## 经验总结
 
+- 最重要的是要理解清楚题目的意思！！！
 - 字符串的调换位置、去重、判断奇偶操作这种类型的题目可以考虑将采取哈希映射为数组，或者bit位。用位操作来完成最后的识别判断。注意，当有顺序要求，不能去重统计时则不适用于哈希映射法。
 - 双指针类问题，需要仔细分清不同 代码分支情况，一条条的梳理清楚。
 - 对字符数组遍历，边界问题的测试需要考虑到字符长度为1，为0，遍历到尾部最后一个字符的处理逻辑；可以尝试通过在字符的最后补了一位来规避遍历时处理最后一个字符的特殊情况。
 - 链表的删除可以考虑使用后续节点代替当前节点
 - 在两个引用指向相同对象的，若想对两个对象内的数值进行互换不能采用异或操作。否则会导致结果为0。
+- 遇到栈相关的问题，一般可以考虑使用临时的另一个栈来完成题目对于栈的顺序要求。
