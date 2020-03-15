@@ -1017,6 +1017,128 @@ class AnimalShelf {
 
 有一个需要注意的点就是，LinkedList是可以用来保存数组的，而且不需要是包装类型`Integer`，直接是原始类型数组即可`int[]`。
 
+## LCCI.04.01 Route Between Nodes
+
+题目：
+
+> Given a directed graph, design an algorithm to find out whether there is a route between two nodes.
+>
+
+这题是典型的图的搜索应用场景，可以使用BFS和DFS。使用BFS可以尽快的搜索到需要的目标，因此这题我采用的是BFS。BFS有着典型的实现方式模板，这题我就是套用了模板。
+
+```java
+public boolean findWhetherExistsPath(int n, int[][] graph, int start, int target) {
+        LinkedList<Integer> breathList = new LinkedList<>();
+        HashMap<Integer, Set<Integer>> temp = new HashMap<>();
+        for (int[] ints : graph) {
+            int key = ints[0];
+            Set<Integer> valueList = temp.computeIfAbsent(key,r->new HashSet<>());
+            valueList.add(ints[1]);
+        }
+        Set<Integer> nodeSet = new HashSet<>();
+        nodeSet.add(start);
+        breathList.add(start);
+        while (!breathList.isEmpty()) {
+            Integer first = breathList.removeFirst();
+            if (first == target) {
+                return true;
+            }
+            //从图中获取该节点的所有相关点
+            Set<Integer> adjacent = temp.get(first);
+            if (adjacent == null) {
+                continue;
+            }
+            for (Integer i : adjacent) {
+                if (!nodeSet.contains(i)) {
+                    if (i == target) {
+                        return true;
+                    } else {
+                        nodeSet.add(i);
+                        breathList.add(i);
+                    }
+                }
+            }
+            nodeSet.add(first);
+        }
+        return false;
+    }
+```
+
+## LCCI.04.02 Minimum Height Tree 
+
+题目：
+
+> Given a sorted (increasing order) array with unique integer elements, write an algo­rithm to create a binary search tree with minimal height.
+>
+
+这题我参考了书本上的解答，才发现可以这么用递归来解决。有点类似与二分法的解答：
+
+```java
+public TreeNode sortedArrayToBST(int[] nums) {
+        return createTreeNode(nums, 0, nums.length - 1);
+    }
+
+    TreeNode createTreeNode(int[] nums, int start, int end) {
+        if (end < start) {
+            return null;
+        }
+        int midIndex = (start + end) / 2;
+        TreeNode mid = new TreeNode(nums[midIndex]);
+        mid.left = createTreeNode(nums, start, midIndex - 1);
+        mid.right = createTreeNode(nums, midIndex + 1, end);
+        return mid;
+    }
+```
+
+## LCCI.04.03 List of Depth
+
+题目：
+
+> Given a binary tree, design an algorithm which creates a linked list of all the nodes at each depth (e.g., if you have a tree with depth D, you'll have D linked lists). Return a array containing all the linked lists.
+>
+
+我的思路是按照广度优先的算法进行遍历，然后将每一层的数据放入到list中。实现起来比我想象的要难一些：
+
+```java
+public ListNode[] listOfDepth(TreeNode tree) {
+        List<ListNode> res = new ArrayList<>();
+        ListNode depthPoint = new ListNode(tree.val);
+        TreeNode head = tree;
+        Queue<TreeNode> nextDepList = new LinkedList<>();
+        Queue<TreeNode> tempnextDepList = new LinkedList<>();
+        nextDepList.add(head);
+        while (!nextDepList.isEmpty()) {
+            tempnextDepList = new LinkedList<>();
+            TreeNode poll = nextDepList.poll();
+            if (poll.left!=null) {
+                tempnextDepList.add(poll.left);
+            }
+            if (poll.right!=null) {
+                tempnextDepList.add(poll.right);
+            }
+            depthPoint = new ListNode(poll.val);
+            ListNode a = depthPoint;
+            for (TreeNode treeNode : nextDepList) {
+                if (treeNode.left!=null) {
+                    tempnextDepList.add(treeNode.left);
+                }
+                if (treeNode.right!=null) {
+                    tempnextDepList.add(treeNode.right);
+                }
+                a.next = new ListNode(treeNode.val);
+                a = a.next;
+            }
+            res.add(depthPoint);
+            nextDepList = tempnextDepList;
+        }
+        ListNode[] resArray = new ListNode[res.size()];
+        res.toArray(resArray);
+        return resArray ;
+    }
+```
+
+
+
 
 
 ## 经验总结
@@ -1028,3 +1150,4 @@ class AnimalShelf {
 - 链表的删除可以考虑使用后续节点代替当前节点
 - 在两个引用指向相同对象的，若想对两个对象内的数值进行互换不能采用异或操作。否则会导致结果为0。
 - 遇到栈相关的问题，一般可以考虑使用临时的另一个栈来完成题目对于栈的顺序要求。
+- ArrayList和LinkedList的toArray方法并不能直接转换为数组，否则会报错。可以新建个数组，在使用`toArray(新数组)`的方法来实现转换为数组。
