@@ -1137,6 +1137,151 @@ public ListNode[] listOfDepth(TreeNode tree) {
     }
 ```
 
+## LCCI.04.04 Check Balance
+
+题目：
+
+> Implement a function to check if a binary tree is balanced. For the purposes of this question, a balanced tree is defined to be a tree such that the heights of the two subtrees of any node never differ by more than one.
+>
+
+一开始想的是用DFS做，看了提示后觉得可以用递归来实现。但是一直没有完成将结果返回出来的处理。参考书本后写出了传递结果的处理：
+
+```java
+    public boolean isBalanced(TreeNode root) {
+        int i = checkHeight(root, 0);
+        return i != Integer.MIN_VALUE;
+    }
+
+    private int checkHeight(TreeNode node, int k) {
+        if (node == null) {
+            return k;
+        }
+        k++;
+        int left = checkHeight(node.left, k);
+        if (left == Integer.MIN_VALUE) {
+            return Integer.MIN_VALUE;
+        }
+        int right = checkHeight(node.right, k);
+        if (right == Integer.MIN_VALUE) {
+            return Integer.MIN_VALUE;
+        }
+        int highAbs = Math.abs(left - right);
+        if (highAbs > 1) {
+            return Integer.MIN_VALUE;
+        }
+        return left > right ? left : right;
+    }
+```
+
+## LCCI.04.05 Legal Binary Search Tree
+
+题目：
+
+> Implement a function to check if a binary tree is a binary search tree.
+
+这题有两个关键点，第一点是要理解清楚二叉搜索树的定义。二叉搜索树要求：**所有**左边的节点小于或等于当前节点，而当前节点必须小于**所有**右边的节点。
+
+有了这个条件，我们就可以写出满足二叉搜索树的条件：`currentNode.left.max<=currentNode<currentNode.right.min`
+
+我先参考了书本上的题解，是一种自顶而下的方法。我自己写了个自底向上的解法，需要将返回数据都封装在一个类里，进行结果返回给上一层处理：
+
+```java
+
+    public boolean isValidBST(TreeNode root) {
+        if (root == null) {
+            return true;//测试用例中根节点为null时返回true
+        }
+        PacValue res = isBST(root, null, root.val);
+        return res.isRes();
+    }
+	/**
+	 * 用于封装返回结果数据的类
+	 */
+    class PacValue {
+        private int max;
+        private int min;
+        private boolean res = true;
+
+        public int getMax() {
+            return max;
+        }
+
+        public void setMax(int max) {
+            this.max = max;
+        }
+
+        public int getMin() {
+            return min;
+        }
+
+        public void setMin(int min) {
+            this.min = min;
+        }
+
+        public boolean isRes() {
+            return res;
+        }
+
+        public void setRes(boolean res) {
+            this.res = res;
+        }
+    }
+
+    PacValue isBST(TreeNode node, Boolean isMax, Integer preNodeVal) {
+        PacValue value = new PacValue();
+        if (node == null) {
+            return null;//递归返回条件
+        }
+        PacValue left = isBST(node.left, true, node.val);
+        if (left != null && !left.isRes()) {
+            value.setRes(false);//左子树已不满足二叉搜索树时，直接向上传递结果
+            return value;
+        }
+        PacValue right = isBST(node.right, false, node.val);
+        if (right != null && !right.isRes()) {
+            value.setRes(false);//右子树已不满足二叉搜索树时，直接向上传递结果
+            return value;
+        }
+        //<editor-fold desc="对于基线条件的处理">
+        if (left == null && right == null) {
+            value.setMax(node.val);//左右子树都为空，则最大最小值为当前节点的值
+            value.setMin(node.val);
+            value.setRes(true);
+        }
+        if (left == null && right != null) {
+            /**
+             * 左子树为空，右子树不为空，若满足当前node小于右子树的最小值，则仍满足二叉搜索树的属性
+             * 此时则最大值为右子树的最大值，最小值为当前节点值
+             * 注意：此时若不满足属性，则最大值填了右子树最大值是错的，
+             * 但是这样没有关系，因为一旦不满足属性递归不会再做处理直接层层向上传递false的结果
+             */
+            value.setMax(right.getMax());
+            value.setMin(node.val);
+            value.setRes(node.val < right.getMin());
+        }
+        if (left != null && right == null) {//类似上一种情况
+            value.setMax(node.val);
+            value.setMin(left.getMin());
+            value.setRes(node.val > left.getMax());
+        }
+        if (left != null && right != null) {
+            /**
+             * 左右子树都不为空，则按照当前节点小于右子树的最小值，并大于左子树的最大值来进行判断是否
+             * 满足二叉搜索树的属性
+             * 此时，若满足属性则最小值为左子树的最小值，最大值为右子树的最大值。
+             * 若不满足属性，此时的最大最小值设置是错的，但是没有关系，不满足属性的结果会直接向上传递。
+             */
+            value.setRes(node.val > left.getMax() && node.val < right.getMin());
+            value.setMin(left.getMin());
+            value.setMax(right.getMax());
+        }
+        //</editor-fold>
+        return value;
+    }
+```
+
+
+
 
 
 
@@ -1151,3 +1296,5 @@ public ListNode[] listOfDepth(TreeNode tree) {
 - 在两个引用指向相同对象的，若想对两个对象内的数值进行互换不能采用异或操作。否则会导致结果为0。
 - 遇到栈相关的问题，一般可以考虑使用临时的另一个栈来完成题目对于栈的顺序要求。
 - ArrayList和LinkedList的toArray方法并不能直接转换为数组，否则会报错。可以新建个数组，在使用`toArray(新数组)`的方法来实现转换为数组。
+- 递归可以通过返回特定值来向上传递某种结果退出递归。
+- **递归题目，首要条件是要找到基准条件。找到之后可以分为自底向上和自顶而下两种写法，自底向上是将每一层的处理结果返回给上一层处理，每层在调用完递归后处理自己本层逻辑再返回。自顶而下则是先对自己本层的逻辑进行处理，然后再将数据封装到参数中递交给下一层处理。不管是自底向上还是自顶而下，都需要对返回条件进行特殊处理！**
