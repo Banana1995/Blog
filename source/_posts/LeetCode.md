@@ -1280,9 +1280,238 @@ public ListNode[] listOfDepth(TreeNode tree) {
     }
 ```
 
+## LCCI.04.06 Successor LCCI
+
+题目：
+
+> Write an algorithm to find the "next" node (i.e., in-order successor) of a given node in a binary search tree.
+>
+> Return null if there's no "next" node for the given node.
+>
+
+这题我第一遍没有做出来，递归写的太复杂。看了书本上的答案也只是给出了伪代码，参考题解后发现有大神给出了很厉害的解法。
+
+```java
+    public TreeNode inorderSuccessor(TreeNode root, TreeNode p) {
+        return searchInorder(root, p);
+    }
+    TreeNode searchInorder(TreeNode root, TreeNode p) {
+        if (root == null || p == null) {
+            return null;
+        }
+        if (root.val <= p.val) {
+            TreeNode right = searchInorder(root.right, p);
+            return right;
+        } else {
+            TreeNode left = searchInorder(root.left, p);
+            return left == null ? root : left;
+        }
+    }
+```
+
+我觉得这题的关键在于依赖了完全搜索二叉树的性质，按照中序遍历完全搜索二叉树得出的是一个有序数组。因此访问中序遍历的下个节点，即可理解为访问大于当前节点值得下一个节点。
 
 
 
+## LCCI.04.08 First Common Ancestor
+
+题目：
+
+> Design an algorithm and write code to find the first common ancestor of two nodes in a binary tree. Avoid storing additional nodes in a data structure. NOTE: This is not necessarily a binary search tree
+>
+
+这题我看了题解之后有了思路，其实二叉树搜索的解法与遍历递归的思想是一样的，要么自顶而下，要么自底而上。这一题要找公共祖先，则自顶而下的方法相对容易。于是先开始在根节点的左子树查找，找不到的话再从右子树查找，左右子树都没有则只有返回当前节点了。
+
+```java
+    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+        if (containpq(root.left, p, q)) {
+            return lowestCommonAncestor(root.left, p, q);
+        }
+        if (containpq(root.right, p, q)) {
+            return lowestCommonAncestor(root.right, p, q);
+        }
+        return root;
+    }
+
+
+    boolean containpq(TreeNode root, TreeNode p, TreeNode q) {
+        return root != null && forwardFind(root, p, q, 0)>=2;
+    }
+
+    int forwardFind(TreeNode root, TreeNode p, TreeNode q, int k) {
+        if (root == null) {
+            return k;
+        }
+        k = forwardFind(root.left, p, q, k);
+        if (k >= 2) {
+            return k;
+        }
+        if (root.val == p.val || root.val == q.val) {
+            k++;
+        }
+        if (k >= 2) {
+            return k;
+        }
+        k = forwardFind(root.right, p, q, k);
+        return k;
+    }
+```
+
+我的实现方法多了一个判断是否存在于子树的递归方法，使得我的解法耗时较长。参考题解，有个大神的解法如下：
+
+```java
+public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+        if (root == null) {
+            return null;
+        }
+        if (root.val == p.val || root.val == q.val) {
+            return root;
+        }
+        TreeNode left = lowestCommonAncestor(root.left, p, q);
+        TreeNode right = lowestCommonAncestor(root.right, p, q);
+        if (left != null && right != null) {
+            return root;
+        }
+        if (left != null) {
+            return left;
+        }
+        if (right != null) {
+            return right;
+        }
+        return null;
+    }
+```
+
+这题的思想与我的基本类似，只是作者没有用判断是否存在于子树来作为递归的条件。直接当前节点与p或q相等时返回当前节点。这里不用再继续往下遍历的原因是，若q或p在当前节点的子节点，那么当前节点就是第一个公共父节点。因此可以直接返回。若既不在左子树又不在右子树则直接返回null，通过返回结果是否为null来判断是否在子树中，这样就可以把我的containpq方法的逻辑给合并了。
+
+## LCCI.04.10 Check SubTree
+
+题目：
+
+> T1 and T2 are two very large binary trees, with T1 much bigger than T2. Create an algorithm to determine if T2 is a subtree of T1.
+>
+> A tree T2 is a subtree of T1 if there exists a node n in T1 such that the subtree of n is identical to T2. That is, if you cut off the tree at node n, the two trees would be identical.
+>
+
+这题主要的要点在于如何理解两个树是相等的，可以采用前序遍历后的结果转换为字符串进行对比。要注意一下：中序遍历即使是不同的结构，也有可能产生相同的结果。但是前序遍历时，只要将为null的节点标识出来即可确定只有相同的树结构才能产生相同的结果。因为前序遍历的第一个节点一定是根节点，可以确定根节点，再确定左右节点，即可保证树的结构相同。
+
+```java
+    public boolean checkSubTree(TreeNode t1, TreeNode t2) {
+
+        StringBuilder a = new StringBuilder();
+        StringBuilder b = new StringBuilder();
+        forwardTree(t1, a);
+        forwardTree(t2, b);
+        return a.indexOf(b.toString())!=-1;
+    }
+
+    void forwardTree(TreeNode root, StringBuilder stringBuilder) {
+        if (root == null) {
+            stringBuilder.append(" ");
+            return;
+        }
+        stringBuilder.append(root.val);
+        forwardTree(root.left,stringBuilder);
+        forwardTree(root.right,stringBuilder);
+    }
+```
+
+## LCCI.04.12 Paths with Sum
+
+题目：
+
+> You are given a binary tree in which each node contains an integer value (which might be positive or negative). Design an algorithm to count the number of paths that sum to a given value. The path does not need to start or end at the root or a leaf, but it must go downwards (traveling only from parent nodes to child nodes).
+>
+
+此题可以参考书本上的解法，先从暴力求解的思路来想，需要将每个节点作为根节点，遍历其至底部节点的路径和。在这个过程中，我们不断重复计算了同个路径下的不同子路径的路径和。将其看成数组，即为求解数组中和为targetSum的区间有几个。我们可以采取类似时间轴的方式，累积每个节点路径和。将其放入到Map中，再用类似twosum的思想，遍历数组的每个节点，能得出距其targetsum的节点数。详细的可以看下书本上的解答。
+
+```java
+   public int pathSum(TreeNode root, int sum) {
+        return countPaths(root, new HashMap<>(), sum, 0);
+    }
+
+    int countPaths(TreeNode root, HashMap<Integer, Integer> pathSumValueCount, int targetSum, int pathSum) {
+        if (root == null) {
+            return 0;
+        }
+        pathSum = pathSum + root.val;
+        int totalPath = pathSumValueCount.getOrDefault(pathSum - targetSum, 0);
+        if (pathSum == targetSum) {
+            totalPath++;
+        }
+        handlePathSumMap(pathSumValueCount, pathSum, 1);
+        totalPath += countPaths(root.left, pathSumValueCount, targetSum, pathSum);
+        totalPath += countPaths(root.right, pathSumValueCount, targetSum, pathSum);
+        handlePathSumMap(pathSumValueCount, pathSum, -1);
+        return totalPath;
+    }
+
+    void handlePathSumMap(HashMap<Integer, Integer> pathSumValueCount, int pathSum, int delta) {
+        Integer paths = pathSumValueCount.computeIfAbsent(pathSum, s -> 0);
+        pathSumValueCount.put(pathSum, paths + delta);
+    }
+```
+
+## LCCI.05.01 Insert Into Bits
+
+题目：
+
+> You are given two 32-bit numbers, N and M, and two bit positions, i and j. Write a method to insert M into N such that M starts at bit j and ends at bit i. You can assume that the bits j through i have enough space to fit all of M. That is, if M = 10011, you can assume that there are at least 5 bits between j and i. You would not, for example, have j = 3 and i = 2, because M could not fully fit between bit 3 and bit 2.
+>
+
+这题主要考察的是如何通过位运算更新值，取出值。一开始按照书本上的解答做出来发现无法通过一个测试案例，查看评论才发现是当左移位数超过31时，符号位并没有改变。因此需要做一个特殊处理：
+
+```java
+    public int insertBits(int N, int M, int i, int j) {
+       int left = 0;
+        if (j >= 31) {
+            for (int b = 0; b < j - 31; b++) {
+                left = left | 1 << b;
+            }
+        } else {
+            left = ~0 << (j + 1);
+        }
+
+        int right = (1 << (i)) - 1;
+        int mask = left | right;
+        N = N & mask;
+        return N | (M << i);
+    }
+```
+
+
+
+## LCCI.05.02 Binary Number to String
+
+题目：
+
+> Given a real number between O and 1 (e.g., 0.72) that is passed in as a double, print the binary representation. If the number cannot be represented accurately in binary with at most 32 characters, print "ERROR".
+>
+
+这题的重点在于怎么理解小数的二进制表达。小数的二进制表达用的是逼近的方式：$$0.625=二进制的0.101=1\times1/2^{1}+0\times1/2^{2}+1\times1/2^{3}=1\times0.5+0\times0.25+1\times0.125$$.因此我们可以使用乘以2的方式来将小数点后的二进制往左移位。因为double类型的数据不支持直接移位运算符`<<`，所以必须采用乘以2的方式来完成左移。
+
+```
+    public String printBin(double num) {
+        if (num >= 1 || num <= 0) {
+            return "ERROR";
+        }
+        StringBuilder sb = new StringBuilder();
+        sb.append("0.");
+        while (num > 0) {
+            if (sb.length() > 32) {
+                return "ERROR";
+            }
+            num = num * 2;
+            if (num >= 1) {
+                sb.append("1");
+                num = num - 1;
+            } else {
+                sb.append("0");
+            }
+        }
+        return sb.toString();
+    }
+```
 
 
 
@@ -1298,3 +1527,5 @@ public ListNode[] listOfDepth(TreeNode tree) {
 - ArrayList和LinkedList的toArray方法并不能直接转换为数组，否则会报错。可以新建个数组，在使用`toArray(新数组)`的方法来实现转换为数组。
 - 递归可以通过返回特定值来向上传递某种结果退出递归。
 - **递归题目，首要条件是要找到基准条件。找到之后可以分为自底向上和自顶而下两种写法，自底向上是将每一层的处理结果返回给上一层处理，每层在调用完递归后处理自己本层逻辑再返回。自顶而下则是先对自己本层的逻辑进行处理，然后再将数据封装到参数中递交给下一层处理。不管是自底向上还是自顶而下，都需要对返回条件进行特殊处理！**
+- **树的查找类问题，思考方向与递归遍历类似，应该是自顶而下或者自底而上。做优化时可以考虑如何将重复的递归逻辑给进行合并**
+- 
