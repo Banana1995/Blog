@@ -1513,6 +1513,39 @@ public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
     }
 ```
 
+## LCCI.05.03 Reverse Bits
+
+题目：
+
+> You have an integer and you can flip exactly one bit from a 0 to a 1. Write code to find the length of the longest sequence of 1s you could create.
+>
+
+此题的关键在于如何找出将一位0翻转为1后，连续的1最长的方法。参考书本答案后，给出如下解：
+
+```java
+    public int reverseBits(int num) {
+        if (~num == 0) return Integer.BYTES * 8;
+        int currentCount = 0;
+        int prveCount = 0;
+        int maxCount = 1;
+        while (num > 0) {
+            if ((num & 1) == 1) {
+                currentCount++;
+            } else {
+                if ((num & 2) == 0) {
+                    prveCount = 0;
+                } else {
+                    prveCount = currentCount;
+                }
+                currentCount = 0;
+            }
+            maxCount = Math.max(prveCount + currentCount + 1, maxCount);
+            num = num >>> 1;
+        }
+        return maxCount;
+    }
+```
+
 
 
 ## 经验总结
