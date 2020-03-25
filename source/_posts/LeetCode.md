@@ -1546,6 +1546,93 @@ public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
     }
 ```
 
+## LCCI.05.04 Closed Number
+
+题目:
+
+> Given a positive integer, print the next smallest and the next largest number that have the same number of 1 bits in their binary representation.
+>
+
+此题的重点是要知道怎么分析问题，题目要求取出最相近的两个数。那么大的那个数应该是最右边非尾部的0变为1（假设为第i位），再在i的右边，从右往左插入n-1个1（n为i右边的1的个数）。
+
+小的那个数应该是最右边非尾部的1变为0（假设为第j位），再在j的右边，从左往右插入m+1个1（m为j右边的1的个数）。
+
+题目分析清楚后就是代码实现，代码实现的时候又很多细节需要注意，都写在注释里了：
+
+```java
+ 	public int[] findClosedNumbers(int num) {
+        int[] res = new int[]{-1, -1};
+        if (num == 0 || num == (~0)) {
+            return res;
+        }
+        res[0] = getNext(num);
+        res[1] = getPrev(num);
+        return res;
+    }
+
+   private int getPrev(int num) {
+        int res = -1;
+        boolean find0 = false;
+        int count = 0;
+        for (int i = 0; i < Integer.BYTES * 8; i++) {
+            if ((num & (1 << i)) == 0) {
+                find0 = true;
+            }
+            if (((num & (1 << i)) == (1 << i))) {
+                count++;
+            }
+            if (((num & (1 << i)) == (1 << i)) && find0) {
+                //将i位变为0  将i位右边全置为0 再添加count+1位的1
+                res = num & (~(1 << i));
+                for (int k = i - 1; k >= 0; k--) {
+                    res = res & (~(1 << k));
+                }
+                int j = 1;
+                while (count > 0) {//由于count计数的时候将当前的1包含进去了，所以往右边添加1时不需要再将count+1了
+                    res = res | (1 << (i - j));
+                    j++;
+                    count--;
+                }
+                break;
+            }
+        }
+
+        return res;
+    }
+    private int getNext(int num) {
+        int res = -1;
+        boolean find1 = false;
+        boolean findFirstNotTail0 = false;
+        int count = 0;
+        for (int i = 0; i < Integer.BYTES * 8; i++) {
+            if ((num & (1 << i)) == (1 << i)) {
+                count++;
+                find1 = true;
+            } else {
+                //出现1之后的第一个0置为1，将该位右边全置为0，再从右往左放入count-1个1
+                if (find1) {
+                    res = num | (1 << i);
+                    for (int k = i-1; k >= 0; k--) {
+                        res = res & (~(1 << k));
+                    }
+                    int j = 0;
+                    while ((count-1 ) > 0) {
+                        res = res | (1 <<  j);
+                        count--;
+                        j++;
+                    }
+                    findFirstNotTail0 = true;
+                    break;
+                }
+            }
+        }
+        if (!findFirstNotTail0) {
+            res = -1;
+        }
+        return res;
+    }
+```
+
 
 
 ## 经验总结
@@ -1561,4 +1648,4 @@ public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
 - 递归可以通过返回特定值来向上传递某种结果退出递归。
 - **递归题目，首要条件是要找到基准条件。找到之后可以分为自底向上和自顶而下两种写法，自底向上是将每一层的处理结果返回给上一层处理，每层在调用完递归后处理自己本层逻辑再返回。自顶而下则是先对自己本层的逻辑进行处理，然后再将数据封装到参数中递交给下一层处理。不管是自底向上还是自顶而下，都需要对返回条件进行特殊处理！**
 - **树的查找类问题，思考方向与递归遍历类似，应该是自顶而下或者自底而上。做优化时可以考虑如何将重复的递归逻辑给进行合并**
-- 
+- 中等难度的问题基本都是将题目分析出来，再将思路编码出来。分析可以由暴力逐步优化，编码能力需要不断刷题实践。
