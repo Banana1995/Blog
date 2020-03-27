@@ -1633,6 +1633,50 @@ public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
     }
 ```
 
+## LCCI.05.06 Convert Interger
+
+题目：
+
+> Write a function to determine the number of bits you would need to flip to convert integer A to integer B.
+>
+
+这题很容易就可以想到用异或来做，两个数相异或后，再取出异或后的数字中1的个数作为结果返回即可。
+
+```java
+    public int convertInteger(int A, int B) {
+        int C = A ^ B;
+        int res = 0;
+        while (C != 0) {
+            if ((C & 1) == 1) {
+                res++;
+            }
+            C >>>= 1;
+        }
+        return res;
+    }
+```
+
+## LCCI.05.07 Exchange
+
+题目：
+
+> Write a program to swap odd and even bits in an integer with as few instructions as possible (e.g., bit 0 and bit 1 are swapped, bit 2 and bit 3 are swapped, and so on).
+>
+
+这题主要的思想在于需要取出奇数位和偶数位，再将奇数位逻辑右移1位，将偶数位左移1位。然后再二者相或即可得出交换后的值。此处需要注意的是用于取奇数位和偶数位的掩码怎么运算的。二进制的1010代表的是十进制的10，在十六进制中则是0xA。因此用于取奇数位的掩码则是0xAAAAAAAA，则取偶数位的掩码为0x55555555，或者用`~0xAAAAAAAA`也可以。
+
+```java
+    public int exchangeBits(int num) {
+        int oddMask = 0xAAAAAAAA;
+        int oddNumber = num & oddMask;
+        int evenMask = ~0xAAAAAAAA;
+        int evenNumber = num & evenMask;
+        return (oddNumber >>> 1) | (evenNumber << 1);
+    }
+```
+
+
+
 
 
 ## 经验总结
