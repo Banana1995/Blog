@@ -1675,6 +1675,222 @@ public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
     }
 ```
 
+## LCCI.05.08 Draw Line
+
+题目：
+
+> A monochrome screen is stored as a single array of int, allowing 32 consecutive pixels to be stored in one int. The screen has width w, where w is divisible by 32 (that is, no byte will be split across rows). The height of the screen, of course, can be derived from the length of the array and the width. Implement a function that draws a horizontal line from (x1, y) to (x2, y).
+>
+> Given the length of the array, the width of the array (in bit), start position x1 (in bit) of the line, end position x2 (in bit) of the line and the row number y of the line, return the array after drawing.
+>
+
+这题的重点在于需要理解清楚题目的意思。我采用了简单的将x1至x2区间内的0置为1的方法。这种解法实现起来较为简单，但是效率不高。使用掩码将x1和x2之间的整数1的位置整个置为1的效率更高。当然要考虑x1和x2处于同一区间中。
+
+```java
+    public int[] drawLine(int length, int w, int x1, int x2, int y) {
+        int[] screen = new int[length];
+
+        int startIndex = (y * w + x1) / 32;
+        int startBitIndex = (y * w + x1) % 32;
+        int total = x2 - x1 + 1;
+        int current = 0;
+        while (total > 0) {
+            for (int i = startBitIndex; i < 32 && total > 0; i++) {
+                current = current | (1 << (31 - i));
+                total--;
+            }
+            screen[startIndex++] = current;
+            current = 0;
+            startBitIndex = 0;
+        }
+        return screen;
+    }
+```
+
+## LCCI.08.01 Three Steps Problem
+
+题目：
+
+> A child is running up a staircase with n steps and can hop either 1 step, 2 steps, or 3 steps at a time. Implement a method to count how many possible ways the child can run up the stairs. The result may be large, so return it modulo 1000000007.
+
+做题最重要的果然还是看清楚题目，然后再写出解法。这题我一开始想的过于简单，以为是需要用乘法，实则不然。只需要`f(n)=f(n-1)+f(n-2)+f(n-3)`这个基线条件即可写出递归。但是由于测试案例中的数据量很大，因此需要处理数据溢出和递归深度的问题。后来改为了动态规划的解法：
+
+```java
+    public int waysToStep(int n) {
+        if (n <= 2) return n;
+        if (n == 3) return 4;
+        int a = 1, b = 2, c = 4;
+        int d = 0;
+        int mod = 1000000007;
+        while (n > 3) {
+            d = ((a + b)%mod + c)%mod;
+            a = b;
+            b = c;
+            c=d;
+            n--;
+        }
+        return d;
+    }
+```
+
+## LCCI.08.02  Robot in a Grid
+
+题目：
+
+> Imagine a robot sitting on the upper left corner of grid with r rows and c columns. The robot can only move in two directions, right and down, but certain cells are "off limits" such that the robot cannot step on them. Design an algorithm to find a path for the robot from the top left to the bottom right.
+>
+
+这题的关键在于如何理解基线条件。需要自底向上的思考，找到最后一个需要一步步的往前找到倒数第二个，倒数第三个。然后遇到1的时候则返回失败。再对其失败的路线进行缓存，即是动态规划。
+
+```java
+    public List<List<Integer>> pathWithObstacles(int[][] obstacleGrid) {
+        if (obstacleGrid == null || obstacleGrid.length == 0|| obstacleGrid[0]==null) {
+            return null;
+        }
+        List<List<Integer>> res = new ArrayList<>();
+        HashSet<List<Integer>> failed = new HashSet<>();
+        if (getPath(res, failed, obstacleGrid, obstacleGrid.length - 1, obstacleGrid[0].length - 1)) {
+            return res;
+        }
+        return new ArrayList<>();
+    }
+
+    boolean getPath(List<List<Integer>> res, HashSet<List<Integer>> failed, int[][] obstacleGrid, int r, int c) {
+        if (r < 0 || c < 0 || (obstacleGrid[r][c] ==1)) return false;
+        List point = new ArrayList();
+        point.add(r);
+        point.add(c);
+        if (failed.contains(point)) {
+            return false;
+        }
+        boolean isAtSourse = (r == 0 && c == 0);
+        if (isAtSourse || getPath(res, failed, obstacleGrid, r - 1, c) || getPath(res, failed, obstacleGrid, r, c - 1)) {
+            res.add(point);
+            return true;
+        }
+        failed.add(point);
+        return false;
+    }
+```
+
+## LCCI.08.03 Magic Index
+
+题目：
+
+> A magic index in an array A[0...n-1] is defined to be an index such that A[i] = i. Given a sorted array of distinct integers, write a method to find a magic index, if one exists, in array A. If not, return -1. If there are more than one magic index, return the smallest one.
+>
+
+此题最简单的解法当然是用数组遍历，但是因为题目给出的条件是有序数组，因此可以利用排序来做。此题可以用递归实现二分法来解决。测试用例中存在重复的元素，因此需要处理下重复的元素：
+
+```java
+   public int findMagicIndex(int[] nums) {
+        if (nums == null || nums.length == 0) {
+            return -1;
+        }
+        return binaryFind(nums, 0, nums.length - 1);
+    }
+
+    int binaryFind(int[] nums, int start, int end) {
+        if (start > end) {
+            return -1;
+        }
+        int mid = (start + end) / 2;
+        if (nums[mid] == mid) {
+            return mid;
+        }
+        int leftres = binaryFind(nums, start, mid - 1);
+        if (leftres != -1) {
+            return leftres;
+        }
+        return binaryFind(nums, mid + 1, end);;
+    }
+```
+
+注意：当题目中给出了有序的条件时，一般来说这个条件是可以加以利用的。
+
+## LCCI.08.04 Power Set 
+
+题目：
+
+> Write a method to return all subsets of a set. The elements in a set are pairwise distinct.
+>
+> Note: The result set should not contain duplicated subsets.
+>
+
+此题类似与之前的三步问题，关键点在于找到基线条件：数组nums的子集为数组nums[n-1]的子集，将其复制一份然后每个加上nums[n]的元素即可。代码实现较为简单：
+
+```java
+public List<List<Integer>> subsets(int[] nums) {
+        Set<List<Integer>> sets = new HashSet<>();
+        getSubSets(nums, nums.length-1, sets);
+        return new ArrayList<>(sets);
+    }
+
+    void getSubSets(int[] nums, int i, Set<List<Integer>> sets) {
+        if (i < 0) {
+            sets.add(new ArrayList<>());
+            return;
+        }
+        getSubSets(nums, --i, sets);
+        Set<List<Integer>> temp = new HashSet<>();
+        for (List<Integer> integerList : sets) {
+            List<Integer> inn = new ArrayList<>(integerList);
+            inn.add(nums[i+1]);
+            temp.add(inn);
+        }
+        sets.addAll(temp);
+    }
+```
+
+看了题解中还有种解法是通过位来表示数组中的数字，这种思路很巧妙，不需要使用递归，直接将每个组合都打印出来即可。贴出题解：
+
+> 例如 [1, 2, 3] 有三位可以从 0 遍历到 7 也就是 2 ^ 3 - 1 用二进制表示就是 000, 001, 010, 011, 100, 101, 110, 111 正好代表了全部子集。
+>
+> ```java
+> public List<List<Integer>> subsets(int[] nums) {
+>         List<List<Integer>> subsets = new ArrayList<>();
+>         int bmp = (int) Math.pow(2, nums.length);
+>         // 从 nums.length 个 0 遍历到 nums.length 个 1
+>         for (int i = 0; i < bmp; i++) {
+>             List<Integer> subset = new ArrayList<>();
+>             for (int j = 0; j < nums.length; j++)
+>                 // 将每一位右移最低位，检测其是否为1
+>                 if ((i >>> j & 1) == 1) subset.add(nums[j]);
+>             subsets.add(subset);
+>         }
+>         return subsets;
+>     }
+> ```
+
+## LCCI.08.05 Recursive Multiply
+
+题目：
+
+> Write a recursive function to multiply two positive integers without using the * operator. You can use addition, subtraction, and bit shifting, but you should minimize the number of those operations.
+>
+
+这题有多种解法，我看了提示之后，写出了提示的解法：
+
+```java
+    public int multiply(int A, int B) {
+        if (B == 0) {
+            return 0;
+        }
+        if (B == 1) {
+            return A;
+        }
+        int C = B >> 1;
+        return multiply(A, C) + multiply(A, B - C);
+    }
+
+```
+
+
+
+
+
+
+
 
 
 
@@ -1693,3 +1909,6 @@ public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
 - **递归题目，首要条件是要找到基准条件。找到之后可以分为自底向上和自顶而下两种写法，自底向上是将每一层的处理结果返回给上一层处理，每层在调用完递归后处理自己本层逻辑再返回。自顶而下则是先对自己本层的逻辑进行处理，然后再将数据封装到参数中递交给下一层处理。不管是自底向上还是自顶而下，都需要对返回条件进行特殊处理！**
 - **树的查找类问题，思考方向与递归遍历类似，应该是自顶而下或者自底而上。做优化时可以考虑如何将重复的递归逻辑给进行合并**
 - 中等难度的问题基本都是将题目分析出来，再将思路编码出来。分析可以由暴力逐步优化，编码能力需要不断刷题实践。
+- 当题目给出有序的条件时，这个条件利用好一般会有很好的效果。
+- 在递归时，若发现可以缓存的数据，可以想办法通过数组或hash表来进行缓存，当然在缓存的时候也需要考虑内存是否会过大超出限制，这也是实现动态规划的一种方法。
+
