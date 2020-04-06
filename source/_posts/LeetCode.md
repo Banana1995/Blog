@@ -1,8 +1,5 @@
 ---
-title: leetcode记录
-date: 2020-03-04 22:35:39
-categories: "Java基础"
-tags: "ARTS"
+：
 ---
 
 # LeetCode记录总结
@@ -1885,6 +1882,174 @@ public List<List<Integer>> subsets(int[] nums) {
 
 ```
 
+## LCCI.08.06 Hanota 
+
+题目：
+
+> In the classic problem of the Towers of Hanoi, you have 3 towers and N disks of different sizes which can slide onto any tower. The puzzle starts with disks sorted in ascending order of size from top to bottom (i.e., each disk sits on top of an even larger one). You have the following constraints:
+>
+> (1) Only one disk can be moved at a time.
+> (2) A disk is slid off the top of one tower onto another tower.
+> (3) A disk cannot be placed on top of a smaller disk.
+>
+> Write a program to move the disks from the first tower to the last using stacks.
+>
+
+汉诺塔的问题，思路是将n-1合并到一起，和第n个组成两个盘子的汉诺塔去递归求解。不需要特别仔细的去追究递归的过程。我一开始就陷入了追究递归的过程中去而导致没有找到答案，实际不需要。
+
+```java
+public void hanota(List<Integer> A, List<Integer> B, List<Integer> C) {
+        moveDisk(A.size() - 1, A, C, B);
+    }
+
+    void moveDisk(int n, List<Integer> orign, List<Integer> dest, List<Integer> buffer) {
+        if (n < 0) {
+            return;
+        }
+        moveDisk(n - 1, orign, buffer, dest);
+        dest.add(orign.remove(orign.size() - 1));
+        moveDisk(n - 1, buffer, dest, orign);
+    }
+```
+
+## LCCI.08.07 Permutation
+
+题目：
+
+> Write a method to compute all permutations of a string of unique characters.
+
+这题与之前的一到题目很相似，先找到n-1个char组成的数组的所有排列组合，再将第n位的字符与之前所有的排列组合相累积在一起。这样即可得到长度为n的字符所有的排列组合：
+
+```java
+	public String[] permutation(String S) {
+        List<String> res = permutationRecusive(S);
+        String[] ress = new String[res.size()];
+        return res.toArray(ress);
+    }
+
+    List<String> permutationRecusive(String S) {
+        List<String> res = new ArrayList<>();
+        if (S.length() == 1) {
+            res.add(S);
+            return res;
+        }
+        for (int i = 0; i < S.length(); i++) {
+            char c = S.charAt(i);
+            StringBuilder sb = new StringBuilder(S);
+            sb.deleteCharAt(i);
+            List<String> te = permutationRecusive(sb.toString());
+            for (String teString : te) {
+                res.add(teString + c);
+            }
+        }
+        return res;
+    }
+```
+
+看到题解中，大家普遍采用的是回溯算法，用深度优先搜索去实现的。贴出其中一个解法：
+
+```java
+private List<String> list = new LinkedList<>();
+
+    public String[] permutation(String S) {
+        char[] array = S.toCharArray();
+        dfs(array, new StringBuilder());
+
+        String[] res = new String[list.size()];
+        return list.toArray(res);
+    }
+
+    private void dfs (char[] array, StringBuilder builder) {
+        if (builder.length() == array.length) {
+            list.add(builder.toString());
+            return;
+        }
+
+        for (char c : array) {
+            if (builder.toString().contains(String.valueOf(c))) {
+                continue;
+            }
+
+            builder.append(c);
+            dfs(array, builder);
+            builder.deleteCharAt(builder.length() - 1);
+        }
+    }
+
+```
+
+## LCCI.08.09 Bracket
+
+题目：
+
+> Implement an algorithm to print all valid (e.g., properly opened and closed) combinations of n pairs of parentheses.
+>
+> Note: The result set should not contain duplicated subsets.
+>
+
+这题我是参考之前的套路采用的递归方式，先取出n-1的结果，再在n-1的结果上组装n的结果。看了题解有很多人采用的回溯的方法去做。关于回溯算法，我还是没有掌握。
+
+```java
+    public List<String> generateParenthesis(int n) {
+        Set<String> res = new HashSet<>();
+        if (n == 1) {
+            res.add("()");
+            return new ArrayList<>(res);
+        }
+        List<String> temp = generateParenthesis(--n);
+        for (String s : temp) {
+            int length = s.length();
+            for (int i = 0; i < length; i++) {
+                if (s.charAt(i) == '(') {
+                    res.add(insertParent(s, i));
+                }
+                res.add("()" + s);
+            }
+        }
+
+        return new ArrayList<>(res);
+    }
+
+    public static String insertParent(String orign, int offset) {
+        String left = orign.substring(0, offset + 1);
+        String right = orign.substring(offset + 1, orign.length());
+        return left + "()" + right;
+    }
+```
+
+## LCCI.08.10 Color Fill
+
+题目：
+
+> Implement the "paint fill" function that one might see on many image editing programs. That is, given a screen (represented by a two-dimensional array of colors), a point, and a new color, fill in the surrounding area until the color changes from the original color.
+>
+
+这题与之前的方格类似，我采用的也是类似于深度优先搜索的解法，一开始有用例没过去，其实可以采用特殊的处理方式将其规避。我采用的是动态规划的方式，将每个已经被填充的：
+
+```java
+    public int[][] floodFill(int[][] image, int sr, int sc, int newColor) {
+        int[][] memo = new int[image.length][image[0].length];
+        return floodFill(image, sr, sc, newColor, image[sr][sc], memo);
+    }
+
+    public int[][] floodFill(int[][] image, int sr, int sc, int newColor, int origColor, int[][] memo) {
+        if (sr < 0 || sc < 0 || sr > image.length - 1 || sc > image[0].length - 1) {
+            return image;
+        }
+        if (origColor == image[sr][sc] && memo[sr][sc] != 1) {
+            image[sr][sc] = newColor;
+            memo[sr][sc] = 1;
+            image = floodFill(image, sr - 1, sc, newColor, origColor, memo);
+            image = floodFill(image, sr + 1, sc, newColor, origColor, memo);
+            image = floodFill(image, sr, sc - 1, newColor, origColor, memo);
+            image = floodFill(image, sr, sc + 1, newColor, origColor, memo);
+        }
+        return image;
+    }
+```
+
+## LCCI.08.11 Coin
+
 
 
 
@@ -1911,4 +2076,5 @@ public List<List<Integer>> subsets(int[] nums) {
 - 中等难度的问题基本都是将题目分析出来，再将思路编码出来。分析可以由暴力逐步优化，编码能力需要不断刷题实践。
 - 当题目给出有序的条件时，这个条件利用好一般会有很好的效果。
 - 在递归时，若发现可以缓存的数据，可以想办法通过数组或hash表来进行缓存，当然在缓存的时候也需要考虑内存是否会过大超出限制，这也是实现动态规划的一种方法。
+- 递归需要全局的思考，不能陷入追究递归的过程中。
 
