@@ -2050,11 +2050,141 @@ private List<String> list = new LinkedList<>();
 
 ## LCCI.08.11 Coin
 
+按照书本解法的动态规划未能通过，金额总是变化导致动态规划的存储内容失效
 
 
 
+## LCCI.08.12 Eight Queens
+
+题目：
+
+> Write an algorithm to print all ways of arranging n queens on an n x n chess board so that none of them share the same row, column, or diagonal. In this case, "diagonal" means all diagonals, not just the two that bisect the board.
+>
+
+这题我是参考的书本上的解法，我一开始么有想到好的递归写法。写递归的时候还是有时候无法组织清楚，还需要加强练习：
+
+```java
+   public List<List<String>> solveNQueens(int n) {
+        List<Integer[]> result = new ArrayList<>();
+        List<List<String>> stringRes = new ArrayList<>();
+        placeQueen(result, 0, new Integer[n], n);
+        for (Integer[] integerArray : result) {
+            List<String> stringList = transString(integerArray);
+            stringRes.add(stringList);
+        }
+        return stringRes;
+    }
+
+    private List<String> transString(Integer[] arrays) {
+        List<String> res = new ArrayList<>();
+        for (int i = 0; i < arrays.length; i++) {
+            Integer columns = arrays[i];
+            StringBuilder sb = new StringBuilder();
+            for (int j = 0; j < arrays.length; j++) {
+                if (columns==j) {
+                    sb.append('Q');
+                }else {
+                    sb.append('.');
+                }
+            }
+            res.add(sb.toString());
+        }
+        return res;
+
+    }
+
+    private void placeQueen(List<Integer[]> result, int row, Integer[] columns, int n) {
+        if (row == n) {
+            result.add(columns.clone());
+        } else {
+            for (int col = 0; col < n; col++) {
+                if (checkValid(row, col, columns)) {
+                    columns[row] = col;
+                    placeQueen(result, row + 1, columns, n);
+                }
+            }
+        }
+
+    }
+
+    private boolean checkValid(int row, int col, Integer[] columns) {
+        for (int i = 0; i < row; i++) {
+            //检查其他行的col列是否有数据
+            if (columns[i] == col) {
+                return false;
+            }
+            int columnDistance = Math.abs(columns[i] - col);
+            int rowDistance = row - i;
+            if (columnDistance == rowDistance) {
+                return false;
+            }
+        }
+        return true;
+    }
+```
+
+这题的一个难点在于校验对角线：两个皇后之间的行距和列距相等则认为是在同一对角线上。另一个难点在于处理校验失败的情形。
+
+## LCCI.08.03 Pile Box
+
+题目：
+
+> You have a stack of n boxes, with widths wi, depths di, and heights hi. The boxes cannot be rotated and can only be stacked on top of one another if each box in the stack is strictly larger than the box above it in width, height, and depth. Implement a method to compute the height of the tallest possible stack. The height of a stack is the sum of the heights of each box.
+>
+> The input use [wi, di, hi] to represents each box.
+
+这题我也是参考书本的解法才写出来的，主要思想就是通过dp来实现子问题的解，先将所有的箱子按照某一维度排序，再将每个箱子作为bottom来计算高度，取出最大的高度即可
+
+```java
+public int pileBox(int[][] box) {
+        sort(box);
+        int[] memo = new int[box.length];
+        int maxHeight = 0;
+        for (int i = 0; i < box.length; i++) {
+            int stackHeight = createStack(box, i, memo);
+            maxHeight = Math.max(stackHeight, maxHeight);
+        }
+        return maxHeight;
+    }
 
 
+    private void sort(int[][] box) {
+
+        for (int i = 0; i < box.length; i++) {
+            for (int j = 0; j < box.length - i - 1; j++) {
+                if (box[j][2] < box[j + 1][2]) {
+                    int[] temp = box[j];
+                    box[j] = box[j + 1];
+                    box[j + 1] = temp;
+                }
+            }
+        }
+    }
+
+    private int createStack(int[][] box, int bottomIndex, int[] memo) {
+        if (memo[bottomIndex] > 0) {
+            return memo[bottomIndex];
+        }
+        int[] bottom = box[bottomIndex];
+        int height = 0;
+        for (int i = bottomIndex + 1; i < box.length; i++) {
+            if (canAbove(bottom, box[i])) {
+                int stackHight = createStack(box, i, memo);
+                height = Math.max(stackHight, height);
+            }
+        }
+        height += bottom[2];
+        memo[bottomIndex] = height;
+        return height;
+    }
+
+    private boolean canAbove(int[] lower, int[] upper) {
+        if (lower[0] > upper[0] && lower[1] > upper[1] && lower[2] > upper[2]) {
+            return true;
+        }
+        return false;
+    }
+```
 
 
 
