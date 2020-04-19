@@ -2125,7 +2125,7 @@ private List<String> list = new LinkedList<>();
 
 这题的一个难点在于校验对角线：两个皇后之间的行距和列距相等则认为是在同一对角线上。另一个难点在于处理校验失败的情形。
 
-## LCCI.08.03 Pile Box
+## LCCI.08.13 Pile Box
 
 题目：
 
@@ -2186,6 +2186,62 @@ public int pileBox(int[][] box) {
     }
 ```
 
+## LCCI.08.14 Boolean Evaluation
+
+题目：
+
+> Given a boolean expression consisting of the symbols 0 (false), 1 (true), & (AND), | (OR), and ^ (XOR), and a desired boolean result value result, implement a function to count the number of ways of parenthesizing the expression such that it evaluates to result.
+
+这题参考题解，并对照着花花的1.4类型的动态规划解出来的，对动态规划有了更深的认识了
+
+```java
+public int countEval(String s, int result) {
+        int n = s.length();
+        int[][][] dp = new int[n][n][2];
+        //区间长度，至少新增2
+        for (int len = 1; len <= n; len += 2) {
+            for (int i = 0; i + len - 1 < n; i += 2) {
+                if (len == 1) {
+                    dp[i][i + len - 1][s.charAt(i) == '0' ? 0 : 1]++;
+                }
+                //遍历子区间的起点和终点，通过操作符分割左右两边。
+                for (int j = i + 1; j < i + len - 1; j += 2) {
+                    //第j位是分隔符的位置
+                    char op = s.charAt(j);
+                    switch (op) {
+                        case '&':
+                            //分割符为 & 时，左边为0，则右边为0或1均可
+                            dp[i][i + len - 1][0] += dp[i][j - 1][0] * (dp[j + 1][i + len - 1][0] + dp[j + 1][i + len - 1][1]) +
+                                    //左边为1，则右边必须为0
+                                    dp[i][j - 1][1] * dp[j + 1][i + len - 1][0];
+                            dp[i][i + len - 1][1] += dp[i][j - 1][1] * dp[j + 1][i + len - 1][1];
+                            break;
+                        case '|':
+                            dp[i][i + len - 1][0] += dp[i][j - 1][0] * dp[j + 1][i + len - 1][0];
+                            dp[i][i + len - 1][1] += dp[i][j - 1][1] * (dp[j + 1][i + len - 1][0] + dp[j + 1][i + len - 1][1]) +
+                                    dp[i][j - 1][0] * dp[j + 1][i + len - 1][1];
+                            break;
+                        case '^':
+                            dp[i][i + len - 1][0] += dp[i][j - 1][0] * dp[j + 1][i + len - 1][0] +
+                                    dp[i][j - 1][1] * dp[j + 1][i + len - 1][1];
+                            dp[i][i + len - 1][1] += dp[i][j - 1][0] * dp[j + 1][i + len - 1][1] +
+                                    dp[i][j - 1][1] * dp[j + 1][i + len - 1][0];
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+        }
+
+        return dp[0][n - 1][result];
+    }
+```
+
+
+
+
+
 
 
 
@@ -2207,4 +2263,6 @@ public int pileBox(int[][] box) {
 - 当题目给出有序的条件时，这个条件利用好一般会有很好的效果。
 - 在递归时，若发现可以缓存的数据，可以想办法通过数组或hash表来进行缓存，当然在缓存的时候也需要考虑内存是否会过大超出限制，这也是实现动态规划的一种方法。
 - 递归需要全局的思考，不能陷入追究递归的过程中。
+- 需要考虑数据规模，否则有些题目采用递归是无法做出来的，时间会超出限制。
+- 
 
