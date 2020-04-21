@@ -1,5 +1,8 @@
 ---
-：
+title: LeetCode记录总结
+date: 2020-04-21 22:28:39
+categories: "Java基础"
+tags: "LEETCODE"
 ---
 
 # LeetCode记录总结
@@ -2238,9 +2241,45 @@ public int countEval(String s, int result) {
     }
 ```
 
+## LCCI.10.01 Sorted Merge 
 
+题目：
 
+> You are given two sorted arrays, A and B, where A has a large enough buffer at the end to hold B. Write a method to merge B into A in sorted order.
+>
+> Initially the number of elements in A and B are m and n respectively.
 
+这题我的思路比较粗暴简单，直接把B的数据放到A的后面，然后用快排来做。
+
+```java
+    public void merge(int[] A, int m, int[] B, int n) {
+        System.arraycopy(B, 0, A, m, n);
+        quickSort(A, 0, m + n - 1);
+    }
+
+    private void quickSort(int[] array, int start, int end) {
+        if (start > end) {
+            return;
+        }
+        int pivot = array[end];
+        int i = start;
+        for (int j = start; j < end; j++) {
+            if (array[j] < pivot) {
+                swap(array,j,i);
+                i++;
+            }
+        }
+        swap(array,i,end);
+        quickSort(array,start,i-1);
+        quickSort(array,i+1,end);
+    }
+
+    private void swap(int[] A, int src, int dest) {
+        int temp = A[src];
+        A[src] = A[dest];
+        A[dest] = temp;
+    }
+```
 
 
 
@@ -2249,6 +2288,7 @@ public int countEval(String s, int result) {
 ## 经验总结
 
 - 最重要的是要理解清楚题目的意思！！！
+- 当使用异或进行数字交换时需要注意，刚开始的两个引用是否指向的是同个对象，若是同个对象则第一次异或时就会产生错误的结果，导致最终的结果是错误的。
 - 字符串的调换位置、去重、判断奇偶操作这种类型的题目可以考虑将采取哈希映射为数组，或者bit位。用位操作来完成最后的识别判断。注意，当有顺序要求，不能去重统计时则不适用于哈希映射法。
 - 双指针类问题，需要仔细分清不同 代码分支情况，一条条的梳理清楚。
 - 对字符数组遍历，边界问题的测试需要考虑到字符长度为1，为0，遍历到尾部最后一个字符的处理逻辑；可以尝试通过在字符的最后补了一位来规避遍历时处理最后一个字符的特殊情况。
