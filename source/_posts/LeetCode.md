@@ -2281,6 +2281,37 @@ public int countEval(String s, int result) {
     }
 ```
 
+## LCCI.10.02 Group Anagrams
+
+题目：
+
+> Write a method to sort an array of strings so that all the anagrams are in the same group.
+>
+
+这题的难点有两个，一个是如何识别异位词，另个是处理整个数组中所有相同异位词的不同字符。采取了类似桶排序的思想：
+
+```java
+    public List<List<String>> groupAnagrams(String[] strs) {
+        List<List<String>> res = new ArrayList<>();
+        Map<String, List<String>> lengthStr = new HashMap<>();
+        for (String str : strs) {
+            List<String> strings = lengthStr.computeIfAbsent(sortString(str), (k) -> {
+                List<String> temp = new ArrayList<>();
+                res.add(temp);
+                return temp;
+            });
+            strings.add(str);
+        }
+        return res;
+    }
+
+    private String sortString(String orig) {
+        char[] chars = orig.toCharArray();
+        Arrays.sort(chars);
+        return new String(chars);
+    }
+```
+
 
 
 
