@@ -2312,6 +2312,148 @@ public int countEval(String s, int result) {
     }
 ```
 
+## LCCI.10.03 Search Rotate Array
+
+题目：
+
+> Given a sorted array of n integers that has been rotated an unknown number of times, write code to find an element in the array. You may assume that the array was originally sorted in increasing order. If there are more than one target elements in the array, return the smallest index.
+>
+
+这题因为有一个迷惑，就是数组的翻转次数，其实无论数组翻转了多少次。最终只有一个乱序的区间。因此可以使用二分法，但是需要仔细的区分每种情况，在每个区间内做好判断：
+
+```java
+public int search(int[] arr, int target) {
+        int left = 0;
+        int right = arr.length - 1;
+        while (left < right) {
+            int mid = (left + right) >>> 1;
+            if (arr[mid] < arr[right]) {
+                //从mid至right之间是递增的
+                if (arr[mid] < target && arr[right] >= target && target != arr[left]) {
+                    left = mid + 1;//下一次从[mid+1,right]中查找
+                } else {
+                    right = mid;//下一次从[left，mid]中查找
+                }
+            } else if (arr[mid] > arr[right]) {
+                //从left到mid之间是递增的
+                if (arr[left] <= target && arr[mid] >= target) {
+                    right = mid;//下一次从[left,mid]中查找
+                } else {
+                    left = mid + 1;//下一次从[mid+1,right]中查找
+                }
+            } else {
+                //arr[mid] == arr[right]
+                if (arr[mid] == target) {
+                    right = mid;
+                } else {
+                    right--;//下一轮从 [left,right-1]
+                }
+            }
+        }
+        if (arr[left] == target) {
+            return left;
+        }
+        return -1;
+    }
+```
+
+## LCCI.10.05 Sparse Array Search
+
+题目：
+
+> Given a sorted array of strings that is interspersed with empty strings, write a method to find the location of a given string.
+>
+
+这题主要思想在于使用二分查找时，需要过滤空字符串，左右边界点和mid点都可能会遇到空字符串，因此需要把它给滤掉。
+
+```java
+    public int findString(String[] words, String s) {
+        int left = 0;
+        int right = words.length - 1;
+        while (left <= right) {
+            int mid = (left + right) >>> 1;
+            while (words[left].equals("")) left++;
+            while (words[right].equals("")) right--;
+            while (words[mid].equals("") && mid < right) mid++;
+            if (words[mid].equals("")) {
+                right = ((left + right) >>> 1) - 1;
+            } else {
+                if (words[mid].compareTo(s) > 0) {
+                    right = mid - 1;
+                } else if (words[mid].compareTo(s) < 0) {
+                    left = mid + 1;
+                } else {
+                    return mid;
+                }
+            }
+        }
+
+        return -1;
+    }
+```
+
+## LCCI.10.09 Sorted Matrix Search
+
+题目：
+
+> Given an M x N matrix in which each row and each column is sorted in ascending order, write a method to find an element.
+
+这题我采用了对矩阵的每一行进行二分查找的方法来实现对整个数组的搜索：
+
+```java
+ public boolean searchMatrix(int[][] matrix, int target) {
+        if (matrix.length == 0) {
+            return false;
+        }
+        int row = 0;
+        int column = matrix[0].length - 1;
+        while (row <= matrix.length - 1 && column > 0) {
+            if (matrix[row][column] > target) {
+                column--;
+            } else if (matrix[row][column] < target) {
+                row++;
+            } else {
+                return true;
+            }
+        }
+        return false;
+    }
+```
+
+## LCCI.10.11 Peaks and Valleys 
+
+题目：
+
+> In an array of integers, a "peak" is an element which is greater than or equal to the adjacent integers and a "valley" is an element which is less than or equal to the adjacent inte­gers. For example, in the array {5, 8, 6, 2, 3, 4, 6}, {8, 6} are peaks and {5, 2} are valleys. Given an array of integers, sort the array into an alternating sequence of peaks and valleys.
+>
+
+这题的解法我看了提示才做出来，先将数组排序，再将排序好的数组按照峰谷位置进行交换。将前半段的峰位换到后半段的谷位上即可，需要注意的是处理中间位的情况：
+
+```java
+    public void wiggleSort(int[] nums) {
+        Arrays.sort(nums);
+        int mid = nums.length / 2;
+        //排好序之后，将前半段的峰位与后半段的谷位进行交换即可得到峰-谷交错的序列
+        for (int i = 0; i < mid; i += 2) {
+            if ((mid & 1) == 0) {
+                //当中间位是偶数时，那么后半段的谷位从mid+1开始，如[1,2,3,4]的mid是2，下标为2的数字是3，后半段的谷位开始是第2+1位=4
+                swapab(nums, i, i + mid + 1);
+            } else {
+                //当中间位是奇数时，那么后半段的谷位从mid开始，如[1,2,3,4,5,6]的mid是3，下标为3的数字是4，后半段的谷位开始是第3位=4
+                swapab(nums, i, i + mid);
+            }
+        }
+    }
+
+    private void swapab(int[] nums, int a, int b) {
+        int temp = nums[a];
+        nums[a] = nums[b];
+        nums[b] = temp;
+    }
+```
+
+
+
 
 
 
@@ -2335,5 +2477,5 @@ public int countEval(String s, int result) {
 - 在递归时，若发现可以缓存的数据，可以想办法通过数组或hash表来进行缓存，当然在缓存的时候也需要考虑内存是否会过大超出限制，这也是实现动态规划的一种方法。
 - 递归需要全局的思考，不能陷入追究递归的过程中。
 - 需要考虑数据规模，否则有些题目采用递归是无法做出来的，时间会超出限制。
-- aaa
+- 二分查找的难点在于需要处理好左右边界点的移动，这涉及到循环打破的条件设置。
 
