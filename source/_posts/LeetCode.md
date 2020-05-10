@@ -2454,6 +2454,400 @@ public int search(int[] arr, int target) {
 
 
 
+## LCCI.16.01 Swap Numbers
+
+题目：
+
+> Write a function to swap a number in place (that is, without temporary vari­ ables).
+>
+
+题目要求不使用额外的变量来实现两个数字的交换，因此我的第一反应是使用异或来完成：
+
+```java
+    public int[] swapNumbers(int[] numbers) {
+        if (numbers[0] == numbers[1]) {
+            return numbers;
+        }
+        numbers[0] = numbers[0] ^ numbers[1];
+        numbers[1] = numbers[0] ^ numbers[1];
+        numbers[0] = numbers[0] ^ numbers[1];
+        return numbers;
+    }
+```
+
+
+
+## LCCI.16.04 Tic-Tac-Toe
+
+题目：
+
+> Design an algorithm to figure out if someone has won a game of tic-tac-toe. Input is a string array of size N x N, including characters " ", "X" and "O", where " " represents a empty grid.
+>
+> The rules of tic-tac-toe are as follows:
+>
+> - Players place characters into an empty grid(" ") in turn.
+>
+> - The first player always place character "O", and the second one place "X".
+>
+> - Players are only allowed to place characters in empty grid. Replacing a character is not allowed.
+>
+> - If there is any row, column or diagonal filled with N same characters, the game ends. The player who place the last charater wins.
+>
+> - When there is no empty grid, the game ends.
+>
+> - If the game ends, players cannot place any character further.
+>
+> If there is any winner, return the character that the winner used. If there's a draw, return "Draw". If the game doesn't end and there is no winner, return "Pending".
+>
+
+这题其实比较简单，一开始我想通过动态规划来做，后来发现无法使用动态规划，因为这个不是路径问题。采用简单的分类讨论，注意下循环的细节处理就好了：
+
+```java
+public String tictactoe(String[] board) {
+        //判断是否有玩家获胜
+        boolean hasEmpty = false;
+        boolean hasWon = false;
+        String res = null;
+        for (int i = 0; i < board.length; i++) {
+            boolean rowCheck = true;
+            char rowChar = board[i].charAt(0);
+            res = String.valueOf(rowChar);
+            if (rowChar == ' ') {
+                hasEmpty = true;
+                rowCheck = false;
+                continue;
+            }
+            for (int j = 0; j < board.length; j++) {
+                if (board[i].charAt(j) == ' ') {
+                    hasEmpty = true;
+                    rowCheck = false;
+                    break;
+                }
+                if (rowChar != board[i].charAt(j)) {
+                    rowCheck = false;//横向检查失败
+                    break;
+                }
+            }
+            if (rowCheck) {
+                hasWon = true;
+                break;
+            }
+        }
+        if (!hasWon) {
+            //纵向检查
+            String fRow = board[0];
+            for (int i = 0; i < fRow.length(); i++) {
+                boolean cloumnCheck = true;
+                char charCon = fRow.charAt(i);
+                res = String.valueOf(charCon);
+                if (charCon == ' ') {
+                    hasEmpty = true;
+                    cloumnCheck = false;
+                    continue;
+                }
+                //纵向检查
+                for (int j = 1; j < board.length; j++) {
+                    if (board[j].charAt(i) == ' ') {
+                        cloumnCheck = false;
+                        hasEmpty = true;
+                        break;
+                    }
+                    if (charCon != board[j].charAt(i)) {
+                        cloumnCheck = false;
+                        break;
+                    }
+                }
+                if (cloumnCheck) {
+                    hasWon = true;
+                    break;
+                }
+            }
+        }
+
+        if (!hasWon) {
+            boolean diaglonCheck = true;
+            char charConStart = board[0].charAt(0);
+            char charConEnd = board[0].charAt(board.length - 1);
+            res = String.valueOf(charConStart);
+            if (charConStart == ' ') {
+                hasEmpty = true;
+                diaglonCheck = false;
+            }
+            for (int i = 1; i < board.length; i++) {
+                //对角线检查
+                if (board[i].charAt(i) == ' ') {
+                    diaglonCheck = false;
+                    hasEmpty = true;
+                    break;
+                }
+                if (charConStart != board[i].charAt(i)) {
+                    diaglonCheck = false;
+                    break;
+                }
+            }
+            if (diaglonCheck) return res;
+            boolean rightDiaglonCheck = true;
+            res = String.valueOf(charConEnd);
+            if (charConEnd == ' ') {
+                hasEmpty = true;
+                rightDiaglonCheck = false;
+            }
+            for (int i = 1; i < board.length; i++) {
+                //对角线检查
+                if (board[i].charAt(board.length - 1 - i) == ' ') {
+                    rightDiaglonCheck = false;
+                    hasEmpty = true;
+                    break;
+                }
+                if (charConEnd != board[i].charAt(board.length - 1 - i)) {
+                    rightDiaglonCheck = false;
+                    break;
+                }
+            }
+            if (rightDiaglonCheck) return res;
+        }
+
+        if (hasWon) {
+            return res;
+        } else {
+            if (hasEmpty) {
+                return "Pending";
+            } else {
+                return "Draw";
+            }
+        }
+     
+    }
+```
+
+
+
+
+
+## LCCI.16.05 Factorial Zeros 
+
+题目：
+
+>  Write an algorithm which computes the number of trailing zeros in n factorial.
+
+这题的主要思路是找出阶乘中的5的倍数有几个。如果遍历阶乘中的每个数来找则会超时，题目要求使时间复杂度达到O(logn)。因此，需要使用对5取整的方法：
+
+```java
+    public int trailingZeroes(int n) {
+        if (n < 2) return 0;
+        int count = 0;
+        while (n > 0) {
+            count += n / 5;
+            n = n / 5;
+        }
+        return count;
+    }
+```
+
+## LCCI.16.06 Smallest Difference
+
+题目：
+
+> Given two arrays of integers, compute the pair of values (one value in each array) with the smallest (non-negative) difference. Return the difference.
+>
+
+这题我只想到了排序，并没有想到双指针的算法，看了题解后才知道可以通过双指针逼近的方法来求解。此题有一点需要注意，就是当int中的数为int的最小值时，通过`Math.abs`取绝对值会溢出。在jdk中`Math.abs`方法是这么实现的：
+
+```java
+    public static long abs(long a) {
+        return (a < 0) ? -a : a;
+    }
+```
+
+因此需要使用long型来存储俩数之间的差，在相减之后对int数据进行强转，即可避免数据溢出的问题。同时由于方法的返回值是int，所以只需要在最后方法返回时，将最小值强转会int型即可：
+
+```java
+   public int smallestDifference(int[] a, int[] b) {
+        Arrays.sort(a);
+        Arrays.sort(b);
+        long min = Integer.MAX_VALUE;
+        int i = 0;
+        int j = 0;
+        while (i < a.length && j < b.length) {
+            if (Math.abs((long)a[i] - (long) b[j]) < min) {
+                min = Math.abs((long)a[i] - (long) b[j]);
+            }
+            if (a[i] > b[j]) {
+                j++;
+            } else {
+                i++;
+            }
+        }
+        return (int)min;
+    }
+```
+
+## LCCI.16.07 Maximum
+
+题目：
+
+> Write a method that finds the maximum of two numbers. You should not use if-else or any other comparison operator.
+>
+
+这题的主要思想在于，当不允许使用比较运算符和if-else时，可以通过将大数乘以1+小数乘以0的方式来返回最终的值。如果a和b是相同符好的数，则可以通过判断a-b的符号位来判断两个数的大小。将a乘以符号位，b乘以符号位的相反即可。
+
+但是当符合位不同时，则需要对其进行特殊的处理。可以先取出a的符号位和b的符号位，再将两个数进行异或，为1说明符合位不同，为0说明符合位相同。那么当为0时，之间按照上述处理即可。为1时，则返回a乘以a的符号位加上b乘以b的符号位。
+
+```java
+public int maximum(int a, int b) {
+        int signa = sign(a);
+        int signb = sign(b);
+        int signc = sign(a - b);
+        int same_sign_a = signa ^ signb;//a,b符合相同为0  符号不同为1
+        int same_sign_c = flip(same_sign_a);//same_sign_a 的反向数
+        int k = same_sign_a * signa + same_sign_c * signc;//符合相同为signc，不同为signa
+        int q = flip(k);
+        return a * k + b * q;
+    }
+
+    //翻转符号位
+    private int flip(int a) {
+        return a ^ 1;
+    }
+
+    //负数返回0 正数返回a
+    private int sign(int a) {
+        return flip((a >> 31) & 0x01);//此处使用算术右移必须与0x01做与运算，不能与1做与运算
+    }
+```
+
+## LCCI.16.09 Operations
+
+题目：
+
+> write methods to implement the multiply, subtract, and divide operations for integers. The results of all of these are integers. Use only the add operator.
+>
+
+此题的解法与书本上不同，因为整数的最大和最小值很容易在LeetCode上跑超时，因此可采用二分法来做。减法用的是`a+-b`来实现。乘法使用二分累加即可。除法比较困难，参考题解后，采用的是32位数组来实现的每一位指数递增，详见解法：
+
+```java
+public int minus(int a, int b) {
+        return a + (-b);
+    }
+
+    public int multiply(int a, int b) {
+        int sameSign = ((a >> 31) ^ (b >> 31)) & 1;//符号位相同为0，相异为1
+        long absA = Math.abs((long) a) < Math.abs((long) b) ? Math.abs((long) a) : Math.abs((long) b);
+        long absB = Math.abs((long) a) < Math.abs((long) b) ? Math.abs((long) b) : Math.abs((long) a);
+        long res = absB;
+        int temp = 1;
+        while (absA > temp) {
+            if (absA > temp + temp) {
+                res += res;
+                temp += temp;
+            } else {
+                res += absB;
+                temp++;
+            }
+        }
+        return sameSign == 0 ? (int) res : (int) -res;
+    }
+
+    public int divide(int a, int b) {
+        if (a == 0x80000000) {
+            return a;
+        }
+        int sameSign = ((a >> 31) ^ (b >> 31)) & 1;//符号位相同为0，相异为1
+        int absA = Math.abs(a);
+        int absB = Math.abs(b);
+        int res = 0;
+        int index = 0;
+        int[] temp = new int[32];
+        int[] bit = new int[32];
+        temp[0] = absB;
+        bit[0] = 1;
+        for (int i = 1; i < temp.length; i++) {
+            if (temp[i - 1] + temp[i - 1] > absA || temp[i - 1] + temp[i - 1] < 0) break;
+            temp[i] = temp[i - 1] + temp[i - 1];
+            bit[i] = bit[i - 1] + bit[i - 1];
+            index++;
+        }
+        for (int i = index; i >= 0; i--) {
+            if (absA >= temp[i]) {
+                absA = minus(absA, temp[i]);
+                res += bit[i];
+            }
+
+        }
+        return sameSign == 0 ? res : -res;
+    }
+```
+
+## LCCI.16.10 Living People
+
+题目：
+
+> Given a list of people with their birth and death years, implement a method to compute the year with the most number of people alive. You may assume that all people were born between 1900 and 2000 (inclusive). If a person was alive during any portion of that year, they should be included in that year's count. For example, Person (birth= 1908, death= 1909) is included in the counts for both 1908 and 1909.
+>
+> If there are more than one years that have the most number of people alive, return the smallest one.
+
+这题我的思路是用双指针解法，但是一开始没有考虑到排序。具体解法如下：
+
+```java
+public int maxAliveYear(int[] birth, int[] death) {
+        Arrays.sort(birth);
+        Arrays.sort(death);
+        int length = birth.length;
+        int maxLivedYear = 0;
+        int i = 0;
+        int j = 0;
+        int aliveCount = 0;
+        int birthCount = 0;
+        int deathCount = 0;
+        while (i < length) {
+            if (birth[i] <= death[j]) {
+                birthCount++;
+                if (birthCount - deathCount > aliveCount) {
+                    aliveCount= birthCount-deathCount;
+                    maxLivedYear = birth[i];
+                }
+                i++;
+            } else if (j < length) {
+                if (birthCount - deathCount > aliveCount) {
+                    aliveCount= birthCount-deathCount;
+                    maxLivedYear = death[j];
+                }
+                deathCount++;
+                j++;
+            }
+        }
+        return maxLivedYear;
+    }
+```
+
+
+
+## LCCI.16.11 Diving Board
+
+题目：
+
+> You are building a diving board by placing a bunch of planks of wood end-to-end. There are two types of planks, one of length shorter and one of length longer. You must use exactly K planks of wood. Write a method to generate all possible lengths for the diving board.
+>
+> return all lengths in non-decreasing order.
+
+这题的思路是，因为必须要使用k个木板，所以从k个全是最短的木板，然后逐一新增长的木板开始计算总长度必然是递增的。只是需要注意处理下shoter与longer相等的情况。
+
+```java
+    public int[] divingBoard(int shorter, int longer, int k) {
+        int[] ans = new int[k + 1];
+        if (k == 0) {
+            return new int[0];
+        }
+        if (shorter == longer) {
+            return new int[]{shorter * k};
+        }
+        for (int i = 0; i <= k; i++) {
+            ans[i] = shorter * (k - i) + longer * i;
+        }
+        return ans;
+    }
+```
+
 
 
 
