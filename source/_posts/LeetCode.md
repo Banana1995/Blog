@@ -2848,6 +2848,76 @@ public int maxAliveYear(int[] birth, int[] death) {
     }
 ```
 
+## LCCI.16.13 Bisect Squares
+
+题目：
+
+> Given two squares on a two-dimensional plane, find a line that would cut these two squares in half. Assume that the top and the bottom sides of the square run parallel to the x-axis.
+>
+> Each square consists of three values, the coordinate of bottom left corner [X,Y] = [square[0],square[1]], and the side length of the square square[2]. The line will intersect to the two squares in four points. Return the coordinates of two intersection points [X1,Y1] and [X2,Y2] that the forming segment covers the other two intersection points in format of {X1,Y1,X2,Y2}. If X1 != X2, there should be X1 < X2, otherwise there should be Y1 <= Y2.
+>
+> If there are more than one line that can cut these two squares in half, return the one that has biggest slope (slope of a line parallel to the y-axis is considered as infinity).
+>
+
+这题的难点有三个，一个是分析清楚，平分两个正方形的直线应该是两个正方形中心点的连线。第二点是需要知道斜率方程式：`y=kx+b`，计算每个点的值时需要加上截距`b`。第三点是，在计算最终的结果时，需要区分一些细节，这考验的是编码能力。边界重合的情况。最简单的做法应该是参照题解那样将几个交点列出来，取出最大最小值即可。
+
+```java
+public double[] cutSquares(int[] square1, int[] square2) {
+        double[] res = new double[4];
+        int x1 = square1[0];
+        int x2 = square2[0];
+        int y1 = square1[1];
+        int y2 = square2[1];
+        double center1x = (x1 + x1 + square1[2]) / 2d;
+        double center1y = (y1 + y1 + square1[2]) / 2d;
+        double center2x = (x2 + x2 + square2[2]) / 2d;
+        double center2y = (y2 + y2 + square2[2]) / 2d;
+        if (center1x == center2x) {
+            res[0] = center1x;
+            res[1] = y1 < y2 ? y1 : y2;
+            res[2] = center2x;
+            res[3] = y1 + square1[2] < y2 + square2[2] ? y2 + square2[2] : y1 + square1[2];
+            return res;
+        }
+        if (center1y == center2y) {
+            res[0] = x1 < x2 ? x1 : x2;
+            res[1] = center1y;
+            res[2] = x1 + square1[2] < x2 + square2[2] ? x2 + square2[2] : x1 + square1[2];
+            res[3] = center2y;
+            return res;
+        }
+        //斜率
+        double rate = (center2y - center1y) / (center2x - center1x);
+        //截距
+        double dis = center1y - rate * center1x;
+        if (Math.abs(rate) > 1) {
+            //交点在上下边
+            int bottomy = y1 < y2 ? y1 : y2;
+            int topy = y1 + square1[2] < y2 + square2[2] ? y2 + square2[2] : y1 + square1[2];
+            double bottomx = bottomy / rate;
+            double topx = topy / rate;
+            //point1：(y1+square[2]-dis)/rate , y1+square1[2]   ponit2:(y1-dis)/rate ,y1
+            //point3: (y2+square2[2]-dis)/rate ,y2+square2[2]   point4:(y2-dis)/rate ,y2
+            res[0] = Math.min(Math.min((y1+square1[2]-dis)/rate,(y1-dis)/rate),Math.min((y2+square2[2]-dis)/rate,(y2-dis)/rate));
+            res[1] = res[0] * rate + dis;
+            res[2] = Math.max(Math.max((y1+square1[2]-dis)/rate,(y1-dis)/rate),Math.max((y2+square2[2]-dis)/rate,(y2-dis)/rate));
+            res[3] = res[2] * rate + dis;
+
+        } else {
+            //交点在左右两边
+            int leftx = x1 < x2 ? x1 : x2;
+            int rightx = x1 + square1[2] < x2 + square2[2] ? x2 + square2[2] : x1 + square1[2];
+            double topy = leftx * rate;
+            double bottomy = rightx * rate;
+            res[0] = leftx;
+            res[1] = topy + dis;
+            res[2] = rightx;
+            res[3] = bottomy + dis;
+        }
+        return res;
+    }
+```
+
 
 
 
