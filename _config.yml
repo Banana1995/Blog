@@ -89,7 +89,7 @@ deploy:
   repo:
     github: git@github.com:Banana1995/banana1995.github.io.git
     #oschina: git@gitee.com:code_artisan/code_artisan.git
-  branch: gh-pages
+  branch: master
   
 jsonContent:
   meta: false
