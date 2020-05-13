@@ -8,7 +8,7 @@ cache:
 notifications:
     email:
         recipients:
-            - gaomanyi698@163.com
+            - 1770261049@qq.com
         on_success: change
         on_failure: always
         
