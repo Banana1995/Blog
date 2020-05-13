@@ -2,7 +2,7 @@
 set -ev
 
 # get clone master
-git clone https:// .deploy_git
+git clone https://${GH_REF} .deploy_git
 cd .deploy_git
 git checkout master
 
