@@ -2920,11 +2920,87 @@ public double[] cutSquares(int[] square1, int[] square2) {
 
 
 
+## 39. Combination Sum
 
+题目：
 
+> Given a set of candidate numbers (candidates) (without duplicates) and a target number (target), find all unique combinations in candidates where the candidate numbers sums to target.
+>
+> The same repeated number may be chosen from candidates unlimited number of times.
+>
+> Note:
+>
+> All numbers (including target) will be positive integers.
+> The solution set must not contain duplicate combinations.
 
+这题可以采用树的dfs来做，需要注意一点的是，在递归遍历的时候需要做去重。因为是结果取得是组合，而不是排列。同时，可以通过一些条件来实现剪枝处理。
 
+```java
+public List<List<Integer>> combinationSum(int[] candidates, int target) {
+        List<List<Integer>> res = new ArrayList<>();
+        dfsCombination(candidates, target, 0, new LinkedList<>(), res);
+        return res;
+    }
 
+    private void dfsCombination(int[] candidates, int target, int start, LinkedList<Integer> current, List<List<Integer>> res) {
+        if (target == 0) {
+            res.add(new ArrayList<>(current));//current对象需要不断被修改，因此需要复制一份
+            return;
+        }
+        for (int i = start; i < candidates.length; i++) {
+            int currValue = candidates[i];
+            if (currValue > target) {
+                continue;//由于前面未对数组进行排序，所以此处当发现值大于目标时直接跳过。 剪枝处理
+            }
+            current.push(currValue);
+            //由于可以使用重复的数字所以下次的循环起点可以从i开始
+            dfsCombination(candidates, target - currValue, i, current, res);
+            current.pop();
+        }
+    }
+```
+
+## 784 Letter Case Permutation
+
+题目：
+
+> Given a string S, we can transform every letter individually to be lowercase or uppercase to create another string.  Return a list of all possible strings we could create
+>
+
+```java
+public List<String> letterCasePermutation(String S) {
+        List<String> res = new ArrayList<>();
+        dfsLetterPermutation(res, 0, S.length(), S, new StringBuilder());
+        return res;
+    }
+
+    private void dfsLetterPermutation(List<String> res, int start, int length, String S, StringBuilder currentString) {
+        if (start == length) {
+            res.add(currentString.toString());
+            return;
+        }
+        char cur = S.charAt(start);
+        currentString.append(cur);
+        dfsLetterPermutation(res, start + 1, length, S, currentString);
+        if (!Character.isDigit(cur)) {
+            currentString.setLength(start);
+            currentString.append(Character.isUpperCase(cur) ? Character.toLowerCase(cur) : Character.toUpperCase(cur));
+            dfsLetterPermutation(res, start + 1, length, S, currentString);
+        }
+    }
+```
+
+这题需要注意的是，stringbuilder可以使用`setLength`方法实现截断到指定长度，这样可以降低时间复杂度。
+
+在字符的时候比数字多走一个分支，反转大小写之后即可。同时反转大小写有个很好的写法是使用异或：`S.charAt[i]^(1<<5)`，因为大写字母与小写字母的ASCII码之间相距32，即2的6次方。因此可以用异或来每次将该位取反，即得到了相反的大小写。
+
+## 模板总结
+
+- 搜索求排列和组合的时候，可以考虑使用dfs的模板套路来做：
+
+  ![1589375130032](C:\Users\banana\AppData\Roaming\Typora\typora-user-images\1589375130032.png)
+
+- 
 
 ## 经验总结
 
