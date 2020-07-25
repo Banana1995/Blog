@@ -3000,6 +3000,10 @@ public List<String> letterCasePermutation(String S) {
 
   ![1589375130032](C:\Users\banana\AppData\Roaming\Typora\typora-user-images\1589375130032.png)
 
+  排列的时间复杂度通常为O(n!)，空间复杂度为O(n).
+
+  组合的时间复杂度通常为O(n!)，空间复杂度为O(n).
+
 - 
 
 ## 经验总结
