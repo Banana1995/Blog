@@ -1,9 +1,7 @@
----
 title: LeetCode记录总结
 date: 2020-04-21 22:28:39
 categories: "Java基础"
 tags: "LEETCODE"
----
 
 # LeetCode记录总结
 
@@ -2996,15 +2994,95 @@ public List<String> letterCasePermutation(String S) {
 
 ## 模板总结
 
+### DFS求排列组合问题
+
 - 搜索求排列和组合的时候，可以考虑使用dfs的模板套路来做：
 
-  ![1589375130032](C:\Users\banana\AppData\Roaming\Typora\typora-user-images\1589375130032.png)
+  ![](模板.png)
 
   排列的时间复杂度通常为O(n!)，空间复杂度为O(n).
 
   组合的时间复杂度通常为O(n!)，空间复杂度为O(n).
 
-- 
+### 二分查找类问题
+
+-  二分法的三种类型模板：
+
+  ```java
+  查找到一个数： 
+  int binary_search(int[] nums, int target) {
+          int left = 0, right = nums.length - 1;
+          while (left <= right) {
+              int mid = left + (right - left) / 2;
+              if (nums[mid] < target) {
+                  left = mid + 1;
+              } else if (nums[mid] > target) {
+                  right = mid - 1;
+              } else if (nums[mid] == target) {
+                  // 直接返回
+                  return mid;
+              }
+          }
+          // 直接返回
+          return -1;
+      }
+  查找到最左边一个数问题：
+      int left_bound(int[] nums, int target) {
+          int left = 0, right = nums.length - 1;
+          while (left <= right) {
+              int mid = left + (right - left) / 2;
+              if (nums[mid] < target) {
+                  left = mid + 1;
+              } else if (nums[mid] > target) {
+                  right = mid - 1;
+              } else if (nums[mid] == target) { 
+              // 保持左边界不动，收缩右边界
+                  right = mid - 1;
+              }
+          }
+          // 最后要检查 left 越界的情况
+          if (left >= nums.length || nums[left] != target) return -1;
+          return left;
+      }
+  查找到最右边一个数问题：
+      int right_bound(int[] nums, int target) {
+          int left = 0, right = nums.length - 1;
+          while (left <= right) {
+              int mid = left + (right - left) / 2;
+              if (nums[mid] < target) {
+                  left = mid + 1;
+              } else if (nums[mid] > target) {
+                  right = mid - 1;
+              } else if (nums[mid] == target) {
+                  // 保持右边界不动，收缩左边界
+                  left = mid + 1;
+              }
+          }
+          // 最后要检查 right 越界的情况
+          if (right < 0 || nums[right] != target) return -1;
+          return right;
+      }
+  ```
+
+- 上述三个模板，**在`while`条件处均采用`left<=right`这种写法，这种写法需要注意的是，在循环内部不管什么情况下都需要收缩左侧或者右侧边界（因为在找到答案时，一定会出现`mid==left==right`的情况，此时判断满足条件的情况下若不收缩边界，则会导致死循环）**，因此，需要在跳出循环时判断左右边界是否越界。
+
+- 在二分查找中，若用`left<=right`条件，则最后的结果一定会是`mid==left==right`的情况下产生的，所以最后返回的是`left`还是`right`就需要判断最后走的是哪个分支（详见162,287,74提交）。
+
+- 在二分查找中，若用`left<right`条件，则最后结果是`right==left`，因此返回哪个都一样。
+
+- 若在`while`循环内部不好找到左右均收缩边界的条件时，则不能再继续使用`left<=right`的条件，需要灵活变通。
+
+- 如若遇到复杂些的问题时，不建议使用`left<=right`作为`while`语句的条件，应当针对实际的二分场景进行区别对待，经常会是使用`left<right`条件的解法更优，但要注意当使用`left<right`时，right是没有被包含进检查区间内的，需注意初始化的right值，或者在跳出循环后检查该点。
+
+- 二分法在内部查找时，查找区间一直是左边界指定的，`while`条件用`left<=right`时，则查找区间会包含right，否则就不会包含，因此需要注意right的初始化值。
+
+- **注意：在`while(left<right)`循环条件下，在收缩边界时，切不可使用`left=mid`这个语句，这个条件会造成死循环。而`right=mid`则可以使用，因为二分取值时，当right=left+1时，mid的值等于left，此时若使用`left=mid`则会产生死循环，使用`right=mid`收缩边界，则会导致`left==right`条件成立，进而跳出循环。**
+
+- 写完二分后，可以通过以下方式校验是否存在死循环以及越界：
+
+  - 使用`while(left<right)`条件时，将`mid = left = right-1`，带入代码判断if条件分支，看是否会存在没有收缩边界的情况，若存在则有死循环。
+  - 使用`while(left<=right)`条件时，将`mid = left = right`，带入代码判断if条件分支，看是否会存在没有收缩边界的情况，若存在则有死循环。
+  - 在退出循环后，使用target小于或大于数组内全部数据的情况，带入代码判断是否存在数组越界的情况。
 
 ## 经验总结
 
