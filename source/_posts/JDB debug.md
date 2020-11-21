@@ -1,4 +1,13 @@
+---
+title: JDB debug操作
+date: 2020-11-21 20:02:12
+categories: "JDB"
+tags: "JVM"
+---
+
 # JDB debug
+
+<!--more-->
 
 - 使用如下命令启动进程，开启jvm的debug模式，端口可自定义，默认为5005
 

@@ -1,7 +1,10 @@
+---
 title: LeetCode记录总结
 date: 2020-04-21 22:28:39
 categories: "Java基础"
 tags: "LEETCODE"
+---
+
 
 # LeetCode记录总结
 
